@@ -15,4 +15,12 @@ public class GlobalExceptionHandler {
     public Result error() {
         return Result.build(null, ResultCodeEnum.SYSTEM_ERROR);
     }
+
+    // 自定义异常处理器
+    @ExceptionHandler(R_Exception.class)
+    // 返回json
+    @ResponseBody
+    public Result r_error(R_Exception e) {
+        return Result.build(null, e.getResultCodeEnum());
+    }
 }
