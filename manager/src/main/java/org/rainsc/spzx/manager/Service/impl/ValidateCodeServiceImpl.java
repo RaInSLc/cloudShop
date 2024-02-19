@@ -23,7 +23,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         //int width, int height, int codeCount, int circleCount
         // 宽 长 位数 干扰数
         CircleCaptcha circleCaptcha =
-                CaptchaUtil.createCircleCaptcha(150, 48, 3, 1);
+                CaptchaUtil.createCircleCaptcha(150, 48, 1, 1);
         String code = circleCaptcha.getCode(); // 验证码
         String imageBase64 = circleCaptcha.getImageBase64(); // base64编码的图
 

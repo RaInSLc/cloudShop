@@ -15,7 +15,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +25,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+
+
+    // 登录redis前缀
+    String redisLogin = "user:login:";
 
     @Override
     public LoginVo login(LoginDto loginDto) {
@@ -69,7 +72,7 @@ public class SysUserServiceImpl implements SysUserService {
         // key: token  value: info
         String j_user = JSON.toJSONString(sysUser);
         redisTemplate.opsForValue()
-                .set("user:login:" + token, j_user, 7, TimeUnit.DAYS);
+                .set(redisLogin + token, j_user, 7, TimeUnit.DAYS);
         // 返回loginVo
         LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
@@ -83,5 +86,10 @@ public class SysUserServiceImpl implements SysUserService {
         String userInfoJson = redisTemplate.opsForValue().get("user:login:" + token);
         SysUser sysUser = JSON.parseObject(userInfoJson, SysUser.class);
         return sysUser;
+    }
+
+    @Override
+    public void logout(String token) {
+        redisTemplate.delete(redisLogin + token);
     }
 }
