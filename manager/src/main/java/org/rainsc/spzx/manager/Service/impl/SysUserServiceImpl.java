@@ -88,6 +88,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete(redisLogin + token);
+        redisTemplate.delete(CommonUse.REDIS_LOGIN_PREFIX + token);
     }
 }
