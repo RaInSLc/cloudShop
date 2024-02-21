@@ -7,6 +7,7 @@ import org.rainsc.spzx.exception.R_Exception;
 import org.rainsc.spzx.manager.Mapper.SysUserMapper;
 import org.rainsc.spzx.manager.Service.SysUserService;
 import org.rainsc.spzx.model.dto.system.LoginDto;
+import org.rainsc.spzx.model.entity.commonStr.CommonUse;
 import org.rainsc.spzx.model.entity.system.SysUser;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.rainsc.spzx.model.vo.system.LoginVo;
@@ -26,9 +27,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-
-    // 登录redis前缀
-    String redisLogin = "user:login:";
 
     @Override
     public LoginVo login(LoginDto loginDto) {
@@ -72,7 +70,7 @@ public class SysUserServiceImpl implements SysUserService {
         // key: token  value: info
         String j_user = JSON.toJSONString(sysUser);
         redisTemplate.opsForValue()
-                .set(redisLogin + token, j_user, 7, TimeUnit.DAYS);
+                .set(CommonUse.REDIS_LOGIN_PREFIX + token, j_user, 7, TimeUnit.DAYS);
         // 返回loginVo
         LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
