@@ -1,8 +1,8 @@
 package org.rainsc.spzx.model.entity.system;
 
-import org.rainsc.spzx.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.rainsc.spzx.model.entity.base.BaseEntity;
 
 @Data
 @Schema(description = "角色实体类")
