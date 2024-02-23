@@ -3,10 +3,7 @@
     <!-- 搜索表单 -->
     <el-form label-width="70px" size="small">
       <el-form-item label="角色名称">
-        <el-input
-            style="width: 100%"
-            placeholder="角色名称"
-        ></el-input>
+        <el-input style="width: 100%" placeholder="角色名称"></el-input>
       </el-form-item>
       <el-row style="display:flex">
         <el-button type="primary" size="small">
@@ -23,9 +20,9 @@
 
     <!--- 角色表格数据 -->
     <el-table :data="list" style="width: 100%">
-      <el-table-column prop="roleName" label="角色名称" width="180" />
-      <el-table-column prop="roleCode" label="角色code" width="180" />
-      <el-table-column prop="createTime" label="创建时间" />
+      <el-table-column prop="roleName" label="角色名称" width="180"/>
+      <el-table-column prop="roleCode" label="角色code" width="180"/>
+      <el-table-column prop="createTime" label="创建时间"/>
       <el-table-column label="操作" align="center" width="280">
         <el-button type="primary" size="small">
           修改
@@ -37,31 +34,35 @@
     </el-table>
 
     <!--分页条-->
-    <el-pagination
-        :page-sizes="[10, 20, 50, 100]"
-        layout="total, sizes, prev, pager, next"
-        :total="total"
-    />
+    <el-pagination :page-sizes="[10, 20, 50, 100]" layout="total, sizes, prev, pager, next" :total="total"/>
   </div>
-
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
-// 分页条总记录数
+
+// 定义数据模型
+// 角色总表
+let lis = ref([])
+// 总记录数
 let total = ref(0)
+// 分页数据
+const pageParamsFrom = {
+  // 当前页
+  page: 1,
+  // 每页记录数
+  limit: 3
+}
+const pageParams = ref(pageParamsFrom)
 
-// 定义表格数据模型
-let list = ref([
-  {"id":9 ,  "roleName": "系统管理员" , "roleCode":"xtgly","createTime": '2023-07-31'},
-  {"id":10 , "roleName": "商品管理员" , "roleCode":"spgly","createTime": '2023-07-31'}
-])
+// 钩子函数
+
+// 操作方法: 列表方法和搜索方法
 
 </script>
 
 <style scoped>
-
 .search-div {
   margin-bottom: 10px;
   padding: 10px;
@@ -77,5 +78,4 @@ let list = ref([
   border-radius: 3px;
   background-color: #fff;
 }
-
 </style>
