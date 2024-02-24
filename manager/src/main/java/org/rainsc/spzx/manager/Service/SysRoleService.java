@@ -8,4 +8,6 @@ public interface SysRoleService {
     void deleteById(Long roleId);
 
     PageInfo<SysRole> findByPage(SysRoleDto sysRoleDto, Integer pageNum, Integer pageSize);
+
+    void saveSysRole(SysRole sysRole);
 }
