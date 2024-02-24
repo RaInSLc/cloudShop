@@ -5,6 +5,9 @@ server:
 
 # 配置数据库连接信息
 spring:
+# 指定json序列化后的时区   不指定默认少8小时
+  jackson:
+    time-zone: GMT+8
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
