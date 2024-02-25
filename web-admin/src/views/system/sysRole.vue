@@ -6,9 +6,9 @@
       <el-form-item label="角色名称">
         <!-- 角色名称输入框 -->
         <el-input
-          v-model="queryDto.roleName"
-          style="width: 100%"
-          placeholder="角色名称"
+            v-model="queryDto.roleName"
+            style="width: 100%"
+            placeholder="角色名称"
         />
       </el-form-item>
       <el-row style="display:flex">
@@ -31,11 +31,11 @@
       <el-form label-width="120px">
         <el-form-item label="角色名称">
           <!-- 角色名称输入框 -->
-          <el-input v-model="saveSysRole.roleName" />
+          <el-input v-model="saveSysRole.roleName"/>
         </el-form-item>
         <el-form-item label="角色Code">
           <!-- 角色Code输入框 -->
-          <el-input v-model="saveSysRole.roleCode" />
+          <el-input v-model="saveSysRole.roleCode"/>
         </el-form-item>
         <el-form-item>
           <!-- 提交表单按钮 -->
@@ -49,11 +49,11 @@
     <!-- 角色列表数据展示 -->
     <el-table :data="list" style="width: 100%">
       <!-- 角色名称列 -->
-      <el-table-column prop="roleName" label="角色名称" width="180" />
+      <el-table-column prop="roleName" label="角色名称" width="180"/>
       <!-- 角色Code列 -->
-      <el-table-column prop="roleCode" label="角色code" width="180" />
+      <el-table-column prop="roleCode" label="角色code" width="180"/>
       <!-- 创建时间列 -->
-      <el-table-column prop="createTime" label="创建时间" />
+      <el-table-column prop="createTime" label="创建时间"/>
       <!-- 操作列 -->
       <el-table-column label="操作" align="center" width="280" #default="scope">
         <!-- 修改按钮 -->
@@ -61,28 +61,29 @@
           修改
         </el-button>
         <!-- 删除按钮 -->
-        <el-button type="danger" size="small" @click="delRole">删除</el-button>
+        <el-button type="danger" size="small" @click="delRoleById(scope.row)">删除</el-button>
       </el-table-column>
     </el-table>
 
     <!-- 分页条 -->
     <el-pagination
-      v-model:current-page="pageParams.page"
-      v-model:page-size="pageParams.limit"
-      :page-sizes="[10, 20, 50, 100]"
-      @size-change="fetchData"
-      @current-change="fetchData"
-      layout="total, sizes, prev, pager, next"
-      :total="total"
-      style="margin-top: 20px;"
+        v-model:current-page="pageParams.page"
+        v-model:page-size="pageParams.limit"
+        :page-sizes="[10, 20, 50, 100]"
+        @size-change="fetchData"
+        @current-change="fetchData"
+        layout="total, sizes, prev, pager, next"
+        :total="total"
+        style="margin-top: 20px;"
     />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { GetSysRoleListByPage, SaveSysRole } from '@/api/sysRole'
-import { ElMessage } from 'element-plus'
+import {onMounted, ref} from 'vue'
+import {DeleteById, GetSysRoleListByPage, SaveSysRole, UpdateSysRole} from '@/api/sysRole'
+import {ElMessage, ElMessageBox} from 'element-plus'
+
 
 // 角色添加和修改表单的数据模型
 const roleForm = {
@@ -97,7 +98,8 @@ const dialogVisible = ref(false)
 
 // 弹出修改角色表单并回显已有数据
 const editShow = row => {
-  saveSysRole.value = { ...row }
+  // es6中的对象拓展运算符实现对象的复制
+  saveSysRole.value = {...row}
   dialogVisible.value = true
 }
 
@@ -107,15 +109,47 @@ const addShow = () => {
   dialogVisible.value = true
 }
 
-// 提交角色表单
+// 添加和修改角色
+// 判断sysRole包含id 则进行修改操作 不包含则进行添加操作
+// 不包含id执行修改
+
 const submit = async () => {
-  const { code } = await SaveSysRole(saveSysRole.value)
-  if (code === 200) {
-    dialogVisible.value = false
-    await fetchData()
-    ElMessage.success('操作成功')
+
+  if (!saveSysRole.value.id) {
+    const {code} = await SaveSysRole(saveSysRole.value)
+    if (code === 200) {
+      dialogVisible.value = false
+      ElMessage.success('操作成功')
+      await fetchData()
+    }
+
+  } else {
+// 执行修改
+    const {code} = await UpdateSysRole(saveSysRole.value)
+    if (code === 200) {
+      dialogVisible.value = false
+      ElMessage.success("操作成功")
+      await fetchData()
+    }
   }
 }
+
+// 删除
+const delRoleById = row => {
+  ElMessageBox.confirm('此操作将永久删除该记录, 是否继续?', '!警告!', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(async () => {
+    const {code} = await DeleteById(row.id)
+    if (code === 200) {
+      ElMessage.success('删除成功')
+      pageParams.value.page = 1
+      await fetchData()
+    }
+  })
+}
+
 
 // 角色列表数据和分页相关参数
 let list = ref([])
@@ -125,19 +159,20 @@ const pageParamsForm = {
   limit: 10,
 }
 const pageParams = ref(pageParamsForm)
-const queryDto = ref({ roleName: '' })
+const queryDto = ref({roleName: ''})
 
 // 页面加载时获取角色列表数据
 onMounted(() => {
   fetchData()
 })
 
+
 // 获取角色列表数据
 const fetchData = async () => {
-  const { data } = await GetSysRoleListByPage(
-    pageParams.value.page,
-    pageParams.value.limit,
-    queryDto.value
+  const {data} = await GetSysRoleListByPage(
+      pageParams.value.page,
+      pageParams.value.limit,
+      queryDto.value
   )
   list.value = data.list
   total.value = data.total

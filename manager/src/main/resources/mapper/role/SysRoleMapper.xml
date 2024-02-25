@@ -20,7 +20,8 @@
         </where>
     </sql>
     <select id="findByPage" resultType="org.rainsc.spzx.model.entity.system.SysRole">
-        select <include refid="columns" />
+        select
+        <include refid="columns"/>
         from sys_role
         <include refid="findPageWhere"/>
         order by id desc
@@ -30,4 +31,26 @@
         insert into sys_role (id, role_name, role_code, description)
         values (#{id}, #{roleName}, #{roleCode}, #{description})
     </insert>
+    <!--修改-->
+    <update id="update">
+        update sys_role set
+        <if test="roleName != null and roleName != ''">
+            role_name = #{roleName},
+        </if>
+        <if test="roleCode != null and roleCode != ''">
+            role_code = #{roleCode},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        update_time =  now()
+        where
+        id = #{id}
+    </update>
+
+    <update id="remove">
+        update sys_role
+        set is_deleted = 1
+        where id = #{roleId}
+    </update>
 </mapper>

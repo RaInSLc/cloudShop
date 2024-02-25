@@ -21,11 +21,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    // 删除角色
-    @Override
-    public void deleteById(Long roleId) {
 
-    }
 
     // 查找角色列表
     @Override
@@ -43,5 +39,17 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void saveSysRole(SysRole sysRole) {
         sysRoleMapper.saveSysRole(sysRole);
+    }
+
+    // 角色修改
+    @Override
+    public void updateSysRole(SysRole sysRole) {
+        sysRoleMapper.update(sysRole);
+    }
+
+    // 删除角色
+    @Override
+    public void deleteById(Long roleId) {
+        sysRoleMapper.remove(roleId);
     }
 }

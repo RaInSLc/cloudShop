@@ -38,9 +38,16 @@ public class SysRoleController {
 
     // 添加角色
     @PostMapping(value = "/saveSysRole")
-    public Result saveSysRole(@RequestBody SysRole sysRole){
+    public Result saveSysRole(@RequestBody SysRole sysRole) {
         sysRoleService.saveSysRole(sysRole);
-        return Result.build(null,ResultCodeEnum.SUCCESS);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    // 角色修改接口
+    @PutMapping(value = "/updateSysRole")
+    public Result updateSysRole(@RequestBody SysRole sysRole) {
+        sysRoleService.updateSysRole(sysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     /**
