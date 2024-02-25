@@ -3,12 +3,83 @@
 <mapper namespace="org.rainsc.spzx.manager.Mapper.SysUserMapper">
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
+        id,                   <!-- 用户ID -->
+        username userName,   <!-- 用户名 -->
+        password,            <!-- 密码 -->
+        name,                <!-- 姓名 -->
+        phone,               <!-- 电话 -->
+        avatar,              <!-- 头像 -->
+        description,         <!-- 描述 -->
+        status,              <!-- 状态 -->
+        create_time,         <!-- 创建时间 -->
+        update_time,         <!-- 更新时间 -->
+        is_deleted           <!-- 是否已删除 -->
     </sql>
+    <!-- 根据用户名查询用户信息 -->
     <select id="selectUserInfoByUsername" resultType="org.rainsc.spzx.model.entity.system.SysUser">
         select
         <include refid="columns"/>
         from sys_user
-        where username = #{userName}
+        where username = #{userName} <!-- 根据用户名查询 -->
+        and is_deleted = 0
     </select>
+
+    <!-- 分页查询用户信息 -->
+    <select id="findByPage" resultType="org.rainsc.spzx.model.entity.system.SysUser">
+        select
+        <include refid="columns">
+        </include>
+        from sys_user
+        <where>
+            <!-- 根据关键字模糊查询 -->
+            <if test="keyword != null and keyword != ''">
+                and username like concat('%', #{keyword}, '%')
+            </if>
+            <!-- 根据创建时间范围查询 -->
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                and create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                and create_time &lt;= #{createTimeEnd}
+            </if>
+            <!-- 查询未被删除的用户 -->
+            and is_deleted = 0
+        </where>
+        order by id <!-- 按ID排序 -->
+    </select>
+
+    <insert id="saveSysRole">
+        insert into sys_user(id, username, password, name, phone, avatar, description, status)
+        values (#{id}, #{username}, #{password}, #{name}, #{phone}, #{avatar}, #{description}, #{status})
+    </insert>
+
+    <update id="updateSysUser">
+        update sys_user set
+        <if test="userName != null and userName != ''">
+            username = #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        update_time = now()
+        where id = #{id}
+    </update>
+
+    <update id="delSysUser">
+        update sys_user
+        set is_deleted = 1
+        where id = #{userId}
+    </update>
 </mapper>

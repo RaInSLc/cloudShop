@@ -2,11 +2,15 @@ package org.rainsc.spzx.manager.Service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.exception.R_Exception;
 import org.rainsc.spzx.manager.Mapper.SysUserMapper;
 import org.rainsc.spzx.manager.Service.SysUserService;
 import org.rainsc.spzx.model.dto.system.LoginDto;
+import org.rainsc.spzx.model.dto.system.SysUserDto;
 import org.rainsc.spzx.model.entity.commonStr.CommonUse;
 import org.rainsc.spzx.model.entity.system.SysUser;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
@@ -16,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -78,16 +83,57 @@ public class SysUserServiceImpl implements SysUserService {
         return loginVo;
     }
 
-    @Override
-    public SysUser getUserInfo(String token) {
-        // 在redis中获取用户信息
-        String userInfoJson = redisTemplate.opsForValue().get("user:login:" + token);
-        SysUser sysUser = JSON.parseObject(userInfoJson, SysUser.class);
-        return sysUser;
-    }
+//    @Override
+//    public SysUser getUserInfo(String token) {
+//        // 在redis中获取用户信息
+//        String userInfoJson = redisTemplate.opsForValue().get("user:login:" + token);
+//        SysUser sysUser = JSON.parseObject(userInfoJson, SysUser.class);
+//        return sysUser;
+//    }
 
     @Override
     public void logout(String token) {
         redisTemplate.delete(CommonUse.REDIS_LOGIN_PREFIX + token);
+    }
+
+    @Override
+    public PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize, SysUserDto sysUserDto) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SysUser> list = sysUserMapper.findByPage(sysUserDto);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public void saveSysRole(SysUser sysUser) {
+        // 判断用户名
+        String userName = sysUser.getUserName();
+        SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
+        //String dbUserName = dbUser.getUserName();
+        if (dbUser != null) {
+            throw new R_Exception(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        // 对密码进行加密
+        String md5_password = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
+        // 放回password
+        sysUser.setPassword(md5_password);
+
+        sysUserMapper.saveSysRole(sysUser);
+    }
+
+    @Override
+    public void updateSysUser(SysUser sysUser) {
+        // 判断用户名
+        String userName = sysUser.getUserName();
+        SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
+        if (dbUser != null) {
+            throw new R_Exception(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        sysUserMapper.updateSysUser(sysUser);
+    }
+
+    @Override
+    public void delSysUser(Long userId) {
+        sysUserMapper.delSysUser(userId);
     }
 }
