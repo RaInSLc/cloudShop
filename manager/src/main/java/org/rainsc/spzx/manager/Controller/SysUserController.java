@@ -1,7 +1,6 @@
 package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
-import org.rainsc.spzx.manager.Service.SysRoleService;
 import org.rainsc.spzx.manager.Service.SysUserService;
 import org.rainsc.spzx.model.dto.system.SysUserDto;
 import org.rainsc.spzx.model.entity.system.SysUser;
@@ -35,7 +34,7 @@ public class SysUserController {
     }
 
     // 修改
-    @PutMapping(value = "/updateSysUser/{userId}")
+    @PutMapping(value = "/updateSysUser")
     public Result updateSysUser(@RequestBody SysUser sysUser) {
         sysUserService.updateSysUser(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
