@@ -48,7 +48,7 @@
         order by id <!-- 按ID排序 -->
     </select>
 
-    <insert id="saveSysRole">
+    <insert id="saveSysUser">
         insert into sys_user(id, username, password, name, phone, avatar, description, status)
         values (#{id}, #{username}, #{password}, #{name}, #{phone}, #{avatar}, #{description}, #{status})
     </insert>

@@ -13,7 +13,7 @@ export const GetSysUserListByPage = (pageNum, pageSize, queryDto) => {
     })
 }
 // 用户添加
-export const saveSysUser = sysUser => {
+export const SaveSysUser = sysUser => {
     return request({
         // 路径
         url: `${base_api}/saveSysUser`,
@@ -21,8 +21,9 @@ export const saveSysUser = sysUser => {
         data: sysUser,
     })
 }
+
 // 用户修改
-export const UpdateSysUser = sysUser => {
+export const UpdateSysRole = sysUser => {
     return request({
         // 路径
         url: `${base_api}/updateSysRole`,
@@ -35,7 +36,7 @@ export const UpdateSysUser = sysUser => {
 export const DelSysUser = userId => {
     return request({
         // 路径
-        url: `${base_api}/${userId}`,
+        url: `${base_api}/delSysUser/${userId}`,
         method: 'delete',
     })
 }

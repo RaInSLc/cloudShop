@@ -1,6 +1,5 @@
 package org.rainsc.spzx.manager.Service.impl;
 
-
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
@@ -83,13 +82,13 @@ public class SysUserServiceImpl implements SysUserService {
         return loginVo;
     }
 
-//    @Override
-//    public SysUser getUserInfo(String token) {
-//        // 在redis中获取用户信息
-//        String userInfoJson = redisTemplate.opsForValue().get("user:login:" + token);
-//        SysUser sysUser = JSON.parseObject(userInfoJson, SysUser.class);
-//        return sysUser;
-//    }
+    @Override
+    public SysUser getUserInfo(String token) {
+        // 在redis中获取用户信息
+        String userInfoJson = redisTemplate.opsForValue().get("user:login:" + token);
+        SysUser sysUser = JSON.parseObject(userInfoJson, SysUser.class);
+        return sysUser;
+    }
 
     @Override
     public void logout(String token) {
@@ -104,8 +103,9 @@ public class SysUserServiceImpl implements SysUserService {
         return pageInfo;
     }
 
+    // 添加
     @Override
-    public void saveSysRole(SysUser sysUser) {
+    public void saveSysUser(SysUser sysUser) {
         // 判断用户名
         String userName = sysUser.getUserName();
         SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
@@ -118,7 +118,9 @@ public class SysUserServiceImpl implements SysUserService {
         // 放回password
         sysUser.setPassword(md5_password);
 
-        sysUserMapper.saveSysRole(sysUser);
+        sysUser.setStatus(1);
+
+        sysUserMapper.saveSysUser(sysUser);
     }
 
     @Override

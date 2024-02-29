@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/admin/system/sysUser")
+//@CrossOrigin
 public class SysUserController {
     //
     @Autowired
     private SysUserService sysUserService;
     // 条件分页查询
 
-    @GetMapping(value = "/findByPage/{pageNum}/{pageSize}")
+    @PostMapping(value = "/findByPage/{pageNum}/{pageSize}")
     public Result findByPage(@PathVariable("pageNum") Integer pageNum,
                              @PathVariable("pageSize") Integer pageSize,
-                             SysUserDto sysUserDto) {
+                             @RequestBody SysUserDto sysUserDto) {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum, pageSize, sysUserDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
 
@@ -29,7 +30,7 @@ public class SysUserController {
     // 添加
     @PostMapping(value = "/saveSysUser")
     public Result saveSysUser(@RequestBody SysUser sysUser) {
-        sysUserService.saveSysRole(sysUser);
+        sysUserService.saveSysUser(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

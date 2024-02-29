@@ -14,7 +14,7 @@ public interface SysUserMapper {
 
 
 
-    void saveSysRole(SysUser sysUser);
+    void saveSysUser(SysUser sysUser);
 
     void updateSysUser(SysUser sysUser);
 
