@@ -29,6 +29,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         // 获取请求方式
         // 如果是options  预检请求 , 直接放行
         String method = request.getMethod();
@@ -40,6 +41,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         // 如果token为空 返回错误提示
         if (StrUtil.isEmpty(token)) {
             responseNoLoginInfo(response);
+//            System.out.println("没拿到token");
             return false;
         }
         // 如果token不为空   拿着token在redis中获取相关信息
@@ -58,7 +60,6 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         // 把redis中的用户信息更新过期时间
         redisTemplate.expire(CommonUse.REDIS_LOGIN_PREFIX + token, 30, TimeUnit.MINUTES);
         // 放行
-
 
         return true;
     }
