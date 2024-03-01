@@ -26,9 +26,9 @@ public class Knife4jConfig {
 
         return new OpenAPI()
                  .info(new Info()
-                 .title("尚品甑选API接口文档")
+                 .title("API接口文档")
                  .version("1.0")
-                 .description("尚品甑选API接口文档")
+                 .description("API接口文档")
                  .contact(new Contact().name("rainsc"))); // 设定作者
     }
 
