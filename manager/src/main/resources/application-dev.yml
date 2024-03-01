@@ -31,3 +31,4 @@ spzx:
     noAuthUrls:
       - /admin/system/index/login
       - /admin/system/index/generateValidateCode
+      - /doc.html#/**
