@@ -18,10 +18,10 @@ public class SysUserController {
     private SysUserService sysUserService;
     // 条件分页查询
 
-    @PostMapping(value = "/findByPage/{pageNum}/{pageSize}")
+    @GetMapping(value = "/findByPage/{pageNum}/{pageSize}")
     public Result findByPage(@PathVariable("pageNum") Integer pageNum,
                              @PathVariable("pageSize") Integer pageSize,
-                             @RequestBody SysUserDto sysUserDto) {
+                              SysUserDto sysUserDto) {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum, pageSize, sysUserDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
 
