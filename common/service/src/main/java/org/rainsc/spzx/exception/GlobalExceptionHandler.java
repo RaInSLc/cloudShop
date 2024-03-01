@@ -12,7 +12,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     // 返回json
     @ResponseBody
-    public Result error() {
+    public Result error(Exception e) {
+        e.printStackTrace();
         return Result.build(null, ResultCodeEnum.SYSTEM_ERROR);
     }
 
