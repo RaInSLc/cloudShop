@@ -112,8 +112,9 @@
 
 <script setup>
 import {onMounted, ref} from 'vue';
-import {GetSysUserListByPage, SaveSysUser} from '@/api/sysUser';
+import {GetSysUserListByPage, SaveSysUser, UpdateSysRole, DelSysUser} from '@/api/sysUser';
 import {ElMessage} from 'element-plus'
+
 
 // 表格数据模型
 const list = ref([]);

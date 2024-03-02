@@ -106,7 +106,7 @@ public class SysUserServiceImpl implements SysUserService {
     // 添加
     @Override
     public void saveSysUser(SysUser sysUser) {
-        // 判断用户名
+        // 判断用户名是否存在 存在就抛出已存在
         String userName = sysUser.getUserName();
         SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
         //String dbUserName = dbUser.getUserName();
