@@ -23,10 +23,10 @@ export const SaveSysUser = sysUser => {
 }
 
 // 用户修改
-export const UpdateSysRole = sysUser => {
+export const UpdateSysUser = sysUser => {
     return request({
         // 路径
-        url: `${base_api}/updateSysRole`,
+        url: `${base_api}/updateSysUser`,
         method: 'put',
         data: sysUser,
     })

@@ -87,8 +87,8 @@
       {{ scope.row.status == 1 ? '正常' : '停用' }}
     </el-table-column>
     <el-table-column prop="createTime" label="创建时间"/>
-    <el-table-column label="操作" align="center" width="280">
-      <el-button type="primary" size="small" @click="showEdit">
+    <el-table-column label="操作" align="center" width="280" #default="scope">
+      <el-button type="primary" size="small" @click="editSysUser(scope.row)">
         修改
       </el-button>
       <el-button type="danger" size="small">
@@ -112,7 +112,7 @@
 
 <script setup>
 import {onMounted, ref} from 'vue';
-import {GetSysUserListByPage, SaveSysUser, UpdateSysRole, DelSysUser} from '@/api/sysUser';
+import {GetSysUserListByPage, SaveSysUser, UpdateSysUser} from '@/api/sysUser';
 import {ElMessage} from 'element-plus'
 
 
@@ -169,17 +169,26 @@ const fetchData = async () => {
   list.value = data.list
   total.value = data.total
 }
+// 修改用户
+const editSysUser = row => {
 
+  sysUser.value = {...row}
+  dialogVisible.value = true
 
+}
+// 添加用户
 // 添加表单对话框显示隐藏控制变量
+// 弹出添加框
 const dialogVisible = ref(false)
 const addShow = () => {
+
   sysUser.value = {}
   dialogVisible.value = true
 }
 
 // 定义提交表单数据模型
 const defaultForm = {
+  id: "",
   userName: "",
   name: "",
   phone: "",
@@ -190,15 +199,28 @@ const defaultForm = {
 const sysUser = ref(defaultForm)
 
 // 提交按钮事件处理函数
+// 提交修改
 const submit = async () => {
-  const {code, message, data} = await SaveSysUser(sysUser.value)
-  if (code === 200) {
-    dialogVisible.value = false
-    ElMessage.success('操作成功')
-    fetchData()
+  if (!sysUser.value.id) {
+    const {code, message, data} = await SaveSysUser(sysUser.value)
+    if (code === 200) {
+      dialogVisible.value = false
+      ElMessage.success('操作成功')
+      await fetchData()
+    } else {
+      ElMessage.error("出现了问题")
+    }
+
   } else {
-    ElMessage.error(message)
+    const {code} = await UpdateSysUser(sysUser.value)
+    if (code === 200) {
+      dialogVisible.value = false
+      ElMessage.success('操作成功')
+      await fetchData()
+    }
   }
+
+
 }
 </script>
 
