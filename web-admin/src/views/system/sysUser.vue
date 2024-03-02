@@ -91,7 +91,7 @@
       <el-button type="primary" size="small" @click="editSysUser(scope.row)">
         修改
       </el-button>
-      <el-button type="danger" size="small">
+      <el-button type="danger" size="small" @click="delUser(scope.row)">
         删除
       </el-button>
       <el-button type="warning" size="small">
@@ -112,8 +112,8 @@
 
 <script setup>
 import {onMounted, ref} from 'vue';
-import {GetSysUserListByPage, SaveSysUser, UpdateSysUser} from '@/api/sysUser';
-import {ElMessage} from 'element-plus'
+import {DelSysUser, GetSysUserListByPage, SaveSysUser, UpdateSysUser} from '@/api/sysUser';
+import {ElMessage, ElMessageBox} from 'element-plus'
 
 
 // 表格数据模型
@@ -219,8 +219,22 @@ const submit = async () => {
       await fetchData()
     }
   }
+}
 
-
+// 删除
+const delUser = row => {
+  ElMessageBox.confirm('此操作将永久删除该记录, 是否继续?', '!警告!', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(async () => {
+    const {code} = await DelSysUser(row.id)
+    if (code === 200) {
+      ElMessage.success('删除成功')
+      pageParams.value.page = 1
+      await fetchData()
+    }
+  })
 }
 </script>
 
