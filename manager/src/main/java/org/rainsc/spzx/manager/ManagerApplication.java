@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager;
 
 
+import org.rainsc.spzx.manager.properties.MinioProperties;
 import org.rainsc.spzx.manager.properties.UserProperties;
 import org.rainsc.spzx.manager.serverUtils.RedisUtil;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableConfigurationProperties(value = {UserProperties.class})
+@EnableConfigurationProperties(value = {UserProperties.class, MinioProperties.class})
 @ComponentScan(basePackages = {"org.rainsc.spzx"})
 public class ManagerApplication {
     public static void main(String[] args) {
