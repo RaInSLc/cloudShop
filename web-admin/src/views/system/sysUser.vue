@@ -57,6 +57,8 @@
             class="avatar-uploader"
             action="http://localhost:8501/admin/system/fileUpload"
             :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :headers="headers"
         >
           <img v-if="sysUser.avatar" :src="sysUser.avatar" class="avatar"/>
           <el-icon v-else class="avatar-uploader-icon">
@@ -202,21 +204,23 @@ const sysUser = ref(defaultForm)
 // 提交修改
 const submit = async () => {
   if (!sysUser.value.id) {
-    const {code, message, data} = await SaveSysUser(sysUser.value)
+    const {code, message} = await SaveSysUser(sysUser.value)
     if (code === 200) {
       dialogVisible.value = false
       ElMessage.success('操作成功')
       await fetchData()
     } else {
-      ElMessage.error("出现了问题")
+      ElMessage.error(message)
     }
 
   } else {
-    const {code} = await UpdateSysUser(sysUser.value)
+    const {code, message } = await UpdateSysUser(sysUser.value)
     if (code === 200) {
       dialogVisible.value = false
       ElMessage.success('操作成功')
       await fetchData()
+    }else {
+      ElMessage.error(message)
     }
   }
 }
@@ -235,6 +239,18 @@ const delUser = row => {
       await fetchData()
     }
   })
+}
+
+///////// 头像上传
+import { useApp } from '@/pinia/modules/app'
+
+const headers = {
+  token: useApp().authorization.token     // 从pinia中获取token，在进行文件上传的时候将token设置到请求头中
+}
+
+// 图像上传成功以后的事件处理函数
+const handleAvatarSuccess = (response, uploadFile) => {
+  sysUser.value.avatar = response.data
 }
 </script>
 
