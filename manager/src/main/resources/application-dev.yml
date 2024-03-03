@@ -32,3 +32,8 @@ spzx:
       - /admin/system/index/login
       - /admin/system/index/generateValidateCode
       - /doc.html#/**
+  minio:
+    endpointUrl: http://127.0.0.1:9000
+    accessKey: username
+    secreKey: password
+    bucketName: spzx
