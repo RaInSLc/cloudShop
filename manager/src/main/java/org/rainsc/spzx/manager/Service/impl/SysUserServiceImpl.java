@@ -1,7 +1,6 @@
 package org.rainsc.spzx.manager.Service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -122,18 +121,30 @@ public class SysUserServiceImpl implements SysUserService {
 
         sysUserMapper.saveSysUser(sysUser);
     }
+    // 修改用户
 
     @Override
     public void updateSysUser(SysUser sysUser) {
+
         // 判断用户名
         String userName = sysUser.getUserName();
-        SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
-        if (dbUser != null) {
-            throw new R_Exception(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        String webUserName = sysUserMapper.selectUserNameById(sysUser.getId());
+        // 需要判断当前用户名是否是未修改
+        // 如果等于本身的用户名  则不修改
+        // 如果不等于本身的用户名 则看看等不等于数据库中已存在的用户名
+        if (!userName.equals(webUserName)) {
+            // 和数据库中其他账号对比存在 相同的则报错
+            SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
+            if (dbUser != null) {
+                throw new R_Exception(ResultCodeEnum.USER_NAME_IS_EXISTS);
+            }
         }
+
+
         sysUserMapper.updateSysUser(sysUser);
     }
 
+    // 删除
     @Override
     public void delSysUser(Long userId) {
         sysUserMapper.delSysUser(userId);

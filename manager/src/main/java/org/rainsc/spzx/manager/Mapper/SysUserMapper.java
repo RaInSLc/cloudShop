@@ -19,4 +19,6 @@ public interface SysUserMapper {
     void updateSysUser(SysUser sysUser);
 
     void delSysUser(Long userId);
+
+    String selectUserNameById(Long id);
 }

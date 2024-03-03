@@ -67,6 +67,9 @@
         <if test="phone != null and phone != ''">
             phone = #{phone},
         </if>
+        <if test="avatar != null and avatar != ''">
+            avatar = #{avatar},
+        </if>
         <if test="description != null and description != ''">
             description = #{description},
         </if>
@@ -82,4 +85,8 @@
         set is_deleted = 1
         where id = #{userId}
     </update>
+
+    <select id="selectUserNameById" resultType="java.lang.String">
+        select username from sys_user where id = #{id}
+    </select>
 </mapper>

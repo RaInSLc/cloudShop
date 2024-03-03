@@ -10,7 +10,7 @@ public enum ResultCodeEnum {
     LOGIN_ACCOUNT_ERROR(2001 , "用户名错误,请检查用户名"),
     VALIDATECODE_ERROR(202 , "验证码错误") ,
     LOGIN_AUTH(208 , "用户未登录"),
-    USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
+    USER_NAME_IS_EXISTS(209 , "用户名已经存在!!"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试/前端逻辑错误/检查请求方式"),
     NODE_ERROR( 217, "该节点下有子节点，不可以删除"),
     DATA_ERROR(204, "数据异常"),
