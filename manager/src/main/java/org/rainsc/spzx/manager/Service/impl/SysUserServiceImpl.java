@@ -126,23 +126,26 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateSysUser(SysUser sysUser) {
 
-        // 判断用户名
+        // 从前端参数中获取用户输入的用户名
         String userName = sysUser.getUserName();
+
+        // 从数据库中根据前端传来的id查询当前用户的用户名
         String webUserName = sysUserMapper.selectUserNameById(sysUser.getId());
-        // 需要判断当前用户名是否是未修改
-        // 如果等于本身的用户名  则不修改
-        // 如果不等于本身的用户名 则看看等不等于数据库中已存在的用户名
+
+        // 判断是否修改了用户名
         if (!userName.equals(webUserName)) {
-            // 和数据库中其他账号对比存在 相同的则报错
+            // 如果修改了用户名，则查询数据库确保新用户名不存在
             SysUser dbUser = sysUserMapper.selectUserInfoByUsername(userName);
             if (dbUser != null) {
+                // 如果新用户名已存在于数据库中，则抛出异常
                 throw new R_Exception(ResultCodeEnum.USER_NAME_IS_EXISTS);
             }
         }
 
-
+        // 更新用户信息
         sysUserMapper.updateSysUser(sysUser);
     }
+
 
     // 删除
     @Override
