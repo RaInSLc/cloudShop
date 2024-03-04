@@ -9,6 +9,8 @@ import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * 系统角色管理 Controller
  */
@@ -60,5 +62,12 @@ public class SysRoleController {
     public Result deleteById(@PathVariable(value = "roleId") Long roleId) {
         sysRoleService.deleteById(roleId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    // 查询所有角色
+    @GetMapping(value = "/findAllRoles")
+    public Result<Map<String , Object>> findAllRoles() {
+        Map<String, Object> resultMap = sysRoleService.findAllRoles();
+        return Result.build(resultMap , ResultCodeEnum.SUCCESS)  ;
     }
 }

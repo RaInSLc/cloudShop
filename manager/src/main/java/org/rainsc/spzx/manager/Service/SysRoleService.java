@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.model.dto.system.SysRoleDto;
 import org.rainsc.spzx.model.entity.system.SysRole;
 
+import java.util.Map;
+
 public interface SysRoleService {
 
     // 根据角色ID删除角色
@@ -17,4 +19,6 @@ public interface SysRoleService {
 
     // 更新角色信息
     void updateSysRole(SysRole sysRole);
+
+    Map<String, Object> findAllRoles();
 }

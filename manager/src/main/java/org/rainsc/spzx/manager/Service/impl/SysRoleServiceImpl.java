@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -20,7 +22,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
 
 
     // 查找角色列表
@@ -47,9 +48,20 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRoleMapper.update(sysRole);
     }
 
+
     // 删除角色
     @Override
     public void deleteById(Long roleId) {
         sysRoleMapper.remove(roleId);
+    }
+
+    // 查询所有角色
+    @Override
+    public Map<String, Object> findAllRoles() {
+        List<SysRole> sysRoleList = sysRoleMapper.findAllRoles();
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("allRolesList", sysRoleList);
+        return resultMap;
+
     }
 }
