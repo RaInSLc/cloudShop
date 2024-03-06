@@ -41,3 +41,14 @@ export const DelSysUser = userId => {
     })
 }
 
+// 分配角色
+export const doAssignRoleToUser = (assignRoleVO) => {
+    return request({
+        // 路径
+        url: `${base_api}/doAssign`,
+        method: 'post',
+        data: assignRoleVO
+    })
+}
+
+

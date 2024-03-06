@@ -5,8 +5,11 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.exception.R_Exception;
+import org.rainsc.spzx.manager.Mapper.SysRoleMapper;
+import org.rainsc.spzx.manager.Mapper.SysRoleUserMapper;
 import org.rainsc.spzx.manager.Mapper.SysUserMapper;
 import org.rainsc.spzx.manager.Service.SysUserService;
+import org.rainsc.spzx.model.dto.system.AssignRoleDto;
 import org.rainsc.spzx.model.dto.system.LoginDto;
 import org.rainsc.spzx.model.dto.system.SysUserDto;
 import org.rainsc.spzx.model.entity.commonStr.CommonUse;
@@ -30,7 +33,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
     @Override
     public LoginVo login(LoginDto loginDto) {
         // 获取redis中验证码code和前端code进行对比
@@ -151,5 +155,17 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void delSysUser(Long userId) {
         sysUserMapper.delSysUser(userId);
+    }
+
+    @Override
+    public void doAssign(AssignRoleDto assignRoleDto) {
+        // 先根据userid 删除用户已有的角色数据
+        Long userId = assignRoleDto.getUserId();
+        sysRoleUserMapper.delOldId(userId);
+        // 分配新的角色
+        List<Long> roleIdList = assignRoleDto.getRoleIdList();
+        for (Long roleId:roleIdList){
+            sysRoleUserMapper.doAssign(userId,roleId);
+        }
     }
 }

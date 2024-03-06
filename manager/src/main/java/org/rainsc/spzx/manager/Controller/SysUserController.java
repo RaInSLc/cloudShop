@@ -2,6 +2,7 @@ package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.manager.Service.SysUserService;
+import org.rainsc.spzx.model.dto.system.AssignRoleDto;
 import org.rainsc.spzx.model.dto.system.SysUserDto;
 import org.rainsc.spzx.model.entity.system.SysUser;
 import org.rainsc.spzx.model.vo.common.Result;
@@ -21,7 +22,7 @@ public class SysUserController {
     @GetMapping(value = "/findByPage/{pageNum}/{pageSize}")
     public Result findByPage(@PathVariable("pageNum") Integer pageNum,
                              @PathVariable("pageSize") Integer pageSize,
-                              SysUserDto sysUserDto) {
+                             SysUserDto sysUserDto) {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum, pageSize, sysUserDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
 
@@ -45,6 +46,14 @@ public class SysUserController {
     @DeleteMapping(value = "/delSysUser/{userId}")
     public Result delSysUser(@PathVariable(value = "userId") Long userId) {
         sysUserService.delSysUser(userId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    // 用户分配角色
+    // 保存分配的数据
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssignRoleDto assignRoleDto) {
+        sysUserService.doAssign(assignRoleDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

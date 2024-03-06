@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager.Service;
 
 import com.github.pagehelper.PageInfo;
+import org.rainsc.spzx.model.dto.system.AssignRoleDto;
 import org.rainsc.spzx.model.dto.system.LoginDto;
 import org.rainsc.spzx.model.dto.system.SysUserDto;
 import org.rainsc.spzx.model.entity.system.SysUser;
@@ -20,4 +21,6 @@ public interface SysUserService {
     void updateSysUser(SysUser sysUser);
 
     void delSysUser(Long userId);
+
+    void doAssign(AssignRoleDto assignRoleDto);
 }
