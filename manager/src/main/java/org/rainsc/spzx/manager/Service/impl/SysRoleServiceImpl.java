@@ -3,6 +3,7 @@ package org.rainsc.spzx.manager.Service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.manager.Mapper.SysRoleMapper;
+import org.rainsc.spzx.manager.Mapper.SysRoleUserMapper;
 import org.rainsc.spzx.manager.Service.SysRoleService;
 import org.rainsc.spzx.model.dto.system.SysRoleDto;
 import org.rainsc.spzx.model.entity.system.SysRole;
@@ -19,6 +20,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -57,10 +60,16 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     // 查询所有角色
     @Override
-    public Map<String, Object> findAllRoles() {
-        List<SysRole> sysRoleList = sysRoleMapper.findAllRoles();
+    public Map<String, Object> findAllRoles(Long userId) {
+//    public Map<String, Object> findAllRoles() {
+        // 查询所有的角色
+        List<SysRole> roleList = sysRoleMapper.findAllRoles();
+        // TODO 分配过的角色列表
+        List<Long> roleIds = sysRoleUserMapper.selectRoleIdsByUserId(userId);
+
         HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("allRolesList", sysRoleList);
+        resultMap.put("allRolesList", roleList);
+        resultMap.put("sysUserRoles", roleIds);
         return resultMap;
 
     }

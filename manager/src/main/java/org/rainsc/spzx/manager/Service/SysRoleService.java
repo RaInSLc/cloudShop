@@ -20,5 +20,6 @@ public interface SysRoleService {
     // 更新角色信息
     void updateSysRole(SysRole sysRole);
 
-    Map<String, Object> findAllRoles();
+    Map<String, Object> findAllRoles(Long userId);
+//    Map<String, Object> findAllRoles();
 }

@@ -133,7 +133,7 @@
 
 <script setup>
 import {onMounted, ref} from 'vue';
-import {doAssignRoleToUser,DelSysUser, GetSysUserListByPage, SaveSysUser, UpdateSysUser} from '@/api/sysUser';
+import {DelSysUser, doAssignRoleToUser, GetSysUserListByPage, SaveSysUser, UpdateSysUser} from '@/api/sysUser';
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {GetAllRoleList} from "@/api/sysRole";
 ///////// 头像上传
@@ -155,7 +155,7 @@ const showAssignRole = async row => {
   const {data} = await GetAllRoleList(row.id)
   allRoles.value = data.allRolesList
   // 分配过的角色
-  userRoleIds.value = data.userRoleIds.value
+  userRoleIds.value = data.sysUserRoles
 }
 ////////////// 分配角色
 const doAssign = async () => {

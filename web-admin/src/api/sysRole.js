@@ -41,9 +41,10 @@ export const DeleteById = roleId => {
 }
 
 // 查询所有的角色数据
-export const GetAllRoleList = () => {
+export const GetAllRoleList = userId => {
   return request({
-    url: `${base_api}/findAllRoles`,
+    url: `${base_api}/findAllRoles/${userId}`,
+    // url: `${base_api}/findAllRoles`,
     method: 'get'
   })
 }
