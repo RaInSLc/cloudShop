@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.rainsc.spzx.manager.Service.SysUserService;
 import org.rainsc.spzx.model.dto.system.AssignRoleDto;
 import org.rainsc.spzx.model.dto.system.SysUserDto;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/admin/system/sysUser")
+@Slf4j
 //@CrossOrigin
 public class SysUserController {
     //
@@ -23,6 +25,7 @@ public class SysUserController {
     public Result findByPage(@PathVariable("pageNum") Integer pageNum,
                              @PathVariable("pageSize") Integer pageSize,
                              SysUserDto sysUserDto) {
+        log.info(String.valueOf(sysUserDto));
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum, pageSize, sysUserDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
 

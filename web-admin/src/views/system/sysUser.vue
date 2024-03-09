@@ -214,18 +214,18 @@ const resetData = () => {
 // 定义分页查询方法
 const fetchData = async () => {
   // 获取开始结束时间
-  if (createTimes.value.length == 2) {
+  if (createTimes.value.length === 2) {
     queryDto.value.createTimeBegin = createTimes.value[0]
     queryDto.value.createTimeEnd = createTimes.value[1]
   }
+
   // 请求后端接口进行分页查询
   const {
-    code,
-    message,
     data
   } = await GetSysUserListByPage(pageParams.value.page, pageParams.value.limit, queryDto.value)
   list.value = data.list
   total.value = data.total
+  console.log(queryDto.value.keyword)
 }
 // 修改用户
 const editSysUser = row => {
