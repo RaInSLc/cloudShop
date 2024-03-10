@@ -21,15 +21,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<SysMenu> findNodes() {
         // 查询所有菜单  返回list
         List<SysMenu> sysMenuList = sysMenuMapper.findAllNodes();
-        // 如果没有节点  直接发农会
+        // 如果没有节点  直接返回null
         if (CollectionUtils.isEmpty(sysMenuList)) {
             return null;
         }
-
-        // 调用工具类 将返回的list封装成前端elep需要的格式
+        // 调用工具类 将返回的list封装成前端 element plus需要的格式
         List<SysMenu> tree = MenuHelper.buildTree(sysMenuList);
-
-
         return tree;
     }
 
