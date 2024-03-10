@@ -31,7 +31,7 @@ public class SysMenuController {
     }
 
     // 修改菜单
-    @PutMapping("/update")
+    @PutMapping("/updateById")
     public Result<List<SysMenu>> update(@RequestBody SysMenu sysMenu) {
         sysMenuService.update(sysMenu);
         return Result.build(null, ResultCodeEnum.SUCCESS);
