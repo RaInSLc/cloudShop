@@ -38,7 +38,7 @@ public class MenuHelper {
             // 开始找关系
             // 父子id是否相同
             // 相同则代表是父子关系
-            if (sysMenu.getId() == it.getId()) {
+            if (sysMenu.getId() == it.getParentId()) {
                 // 递归用
                 sysMenu.getChildren().add(findChildren(it, sysMenuList));
             }
