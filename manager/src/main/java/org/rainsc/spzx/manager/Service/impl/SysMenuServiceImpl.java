@@ -33,6 +33,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     // 添加
     @Override
     public void save(SysMenu sysMenu) {
+        Integer sortValue = sysMenu.getSortValue();
+        String component = sysMenu.getComponent();
+        if (sortValue == null || component == null) {
+            throw new R_Exception(ResultCodeEnum.MENU_NULL);
+        }
         sysMenuMapper.save(sysMenu);
     }
 
@@ -51,10 +56,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         // 找到的子菜单的数量大于0 则抛出异常
         if (countParent > 0) {
             throw new R_Exception(ResultCodeEnum.NODE_ERROR);
-        } else if(countParent == 0) {
-            sysMenuMapper.removeById(id);
-        }else{
-            throw new R_Exception(ResultCodeEnum.NODE_ERROR);
         }
+        sysMenuMapper.removeById(id);
+
     }
 }
