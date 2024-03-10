@@ -3,6 +3,7 @@ package org.rainsc.spzx.manager.Service.impl;
 import org.rainsc.spzx.manager.Mapper.SysRoleMenuMapper;
 import org.rainsc.spzx.manager.Service.SysMenuService;
 import org.rainsc.spzx.manager.Service.SysRoleMenuService;
+import org.rainsc.spzx.model.dto.system.AssginMenuDto;
 import org.rainsc.spzx.model.entity.system.SysMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,18 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
         // 返回
         return result;
 
+    }
+
+    // 为角色分配菜单
+    @Override
+    public void doAssign(AssginMenuDto assginMenuDto) {
+        // 删除已分配过的菜单
+        sysRoleMenuMapper.deleteByRoleId(assginMenuDto.getRoleId());
+        // 保存分配的数据
+        List<Map<String, Number>> menuIdList = assginMenuDto.getMenuIdList();
+        if (menuIdList != null && !menuIdList.isEmpty()) {
+            // 分配了菜单
+            sysRoleMenuMapper.doAssign(assginMenuDto);
+        }
     }
 }
