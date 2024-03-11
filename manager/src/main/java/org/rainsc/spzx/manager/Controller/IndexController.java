@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager.Controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.rainsc.spzx.manager.Service.SysMenuService;
 import org.rainsc.spzx.manager.Service.SysUserService;
 import org.rainsc.spzx.manager.Service.ValidateCodeService;
 import org.rainsc.spzx.model.dto.system.LoginDto;
@@ -8,10 +9,13 @@ import org.rainsc.spzx.model.entity.system.SysUser;
 import org.rainsc.spzx.model.vo.common.Result;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.rainsc.spzx.model.vo.system.LoginVo;
+import org.rainsc.spzx.model.vo.system.SysMenuVo;
 import org.rainsc.spzx.model.vo.system.ValidateCodeVo;
 import org.rainsc.spzx.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "用户接口")
 @RestController
@@ -60,7 +64,16 @@ public class IndexController {
     public Result<SysUser> logout(@RequestHeader(name = "token") String token) {
         sysUserService.logout(token);
         return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 
+    @Autowired
+    private SysMenuService sysMenuService;
+
+    // 查询用户可以操作的菜单
+    @GetMapping("/menus")
+    public Result menus() {
+        List<SysMenuVo> list = sysMenuService.findMenuByUserId();
+        return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 
 }
