@@ -1,7 +1,7 @@
 package org.rainsc.spzx.manager.Mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.rainsc.spzx.model.dto.system.AssginMenuDto;
+import org.rainsc.spzx.model.dto.system.AssignMenuDto;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface SysRoleMenuMapper {
 
     void deleteByRoleId(Long roleId);
 
-    void doAssign(AssginMenuDto assginMenuDto);
+    void doAssign(AssignMenuDto assignMenuDto);
 }

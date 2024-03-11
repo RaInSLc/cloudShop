@@ -1,6 +1,6 @@
 package org.rainsc.spzx.manager.Service;
 
-import org.rainsc.spzx.model.dto.system.AssginMenuDto;
+import org.rainsc.spzx.model.dto.system.AssignMenuDto;
 
 import java.util.Map;
 
@@ -9,5 +9,5 @@ public interface SysRoleMenuService {
     Map<String, Object> findSysRoleMenuByRoleId(Long roleId);
 
     // 为角色分配菜单那
-    void doAssign(AssginMenuDto assginMenuDto);
+    void doAssign(AssignMenuDto assginMenuDto);
 }
