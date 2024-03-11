@@ -2,6 +2,7 @@ package org.rainsc.spzx.manager.Service.impl;
 
 import org.rainsc.spzx.exception.R_Exception;
 import org.rainsc.spzx.manager.Mapper.SysMenuMapper;
+import org.rainsc.spzx.manager.Mapper.SysRoleMenuMapper;
 import org.rainsc.spzx.manager.Service.SysMenuService;
 import org.rainsc.spzx.manager.utils.MenuHelper;
 import org.rainsc.spzx.model.entity.system.SysMenu;
@@ -43,6 +44,24 @@ public class SysMenuServiceImpl implements SysMenuService {
             throw new R_Exception(ResultCodeEnum.MENU_NULL);
         }
         sysMenuMapper.save(sysMenu);
+
+        // 新添加子菜单  将父菜单中的isHalf改为半开  0全开  1半开
+        updateIsHalf(sysMenu);
+
+    }
+
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
+
+    private void updateIsHalf(SysMenu sysMenu) {
+        SysMenu parentNode = sysMenuMapper.selectParentNode(sysMenu);
+        // 父节点不为空 则修改half为1
+        if (parentNode != null) {
+            // 修改半开选中状态
+            sysRoleMenuMapper.updateIsHalf(parentNode.getId());
+            // 递归调用 防止多层菜单因 上 上 层没改而bug
+            updateIsHalf(parentNode);
+        }
     }
 
     // 修改

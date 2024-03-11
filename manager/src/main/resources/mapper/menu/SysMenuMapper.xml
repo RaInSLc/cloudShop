@@ -71,4 +71,12 @@
         where user_id = #{userId}
           and u.is_deleted = 0
     </select>
+
+    <select id="selectParentNode" resultType="org.rainsc.spzx.model.entity.system.SysMenu">
+        select
+        <include refid="columns">
+        </include>
+        from sys_menu
+        where id = #{parentId}
+    </select>
 </mapper>

@@ -12,4 +12,7 @@ public interface SysRoleMenuMapper {
     void deleteByRoleId(Long roleId);
 
     void doAssign(AssignMenuDto assignMenuDto);
+
+    // 根据菜单id修改对应的isHalf状态
+    void updateIsHalf(Long menuId);
 }
