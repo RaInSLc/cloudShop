@@ -26,12 +26,19 @@
       </el-form-item>
     </el-form>
   </el-dialog>
-  <el-table
+<!--  <el-table-->
+<!--      :data="list"-->
+<!--      style="width: 100%; margin-bottom: 20px"-->
+<!--      row-key="id"-->
+<!--      border-->
+<!--      default-expand-all-->
+<!--  >-->
+    <el-table
       :data="list"
       style="width: 100%; margin-bottom: 20px"
       row-key="id"
       border
-      default-expand-all
+      :default-expanded-keys="[]"
   >
     <el-table-column prop="title" label="菜单标题"/>
     <el-table-column prop="component" label="路由名称"/>
