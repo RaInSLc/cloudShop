@@ -13,22 +13,24 @@
         update_time,
         is_deleted
     </sql>
-<!--    查询下层分类-->
+
+    <!-- 查询下层分类 -->
     <select id="selectCategoryByParentId" resultType="org.rainsc.spzx.model.entity.product.Category">
+        <!-- 包含公用列 -->
         select
         <include refid="columns">
         </include>
         from category
         where parent_id = #{id}
           and is_deleted = 0
-        order by id;
+        order by id
     </select>
 
+    <!-- 查询指定父分类下的子分类数量 -->
     <select id="selectCountByParentId" resultType="int">
         select count(*)
         from category
         where parent_id = #{id}
           and is_deleted = 0
-        order by id;
     </select>
 </mapper>
