@@ -28,28 +28,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted} from 'vue';
+import { FindCategoryByParentId } from '@/api/category.js'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 定义list属性模型
-const list = ref([
-  {"id":1 , "name":"数码" , "orderNum":"1" , "status":1 , "createTime":"2023-05-22" , "hasChildren": true},
-  {"id":2 , "name":"手机" , "orderNum":"1", "status":1, "createTime":"2023-05-22"},
-])
+const list = ref([])
+
+// 页面初始化完毕以后请求后端接口查询数据
+onMounted(async () => {
+  const {code , data , message} = await FindCategoryByParentId(0)
+  list.value = data ;
+})
 
 // 加载数据的方法
-const fetchData = (row, treeNode, resolve) => {
+const fetchData = async (row, treeNode, resolve) => {
 
   // 向后端发送请求获取数据
-  const data = [
-    {"id":3 , "name":"智能设备" , "orderNum":"1" , "status":1 , "createTime":"2023-05-22" },
-    {"id":4 , "name":"电子教育" , "orderNum":"2" , "status":1 , "createTime":"2023-05-22" },
-  ]
+  const {code , data , message} = await FindCategoryByParentId(row.id)
 
   // 返回数据
   resolve(data)
 
 }
-
 </script>
 
 <style scoped>
