@@ -10,7 +10,7 @@
     - MySQL 8
     - Maven
     - Git
-    - MinIO
+    - MinIO : latest version
     - MyBatis
     - node.js v14.21.3
     - Vue.js
