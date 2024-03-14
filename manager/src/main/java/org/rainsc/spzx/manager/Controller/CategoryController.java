@@ -21,7 +21,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     // excel导出
-    @GetMapping("/export")
+    @GetMapping("/exportData")
     public void exportData(HttpServletResponse response) {
         categoryService.exportData(response);
 
