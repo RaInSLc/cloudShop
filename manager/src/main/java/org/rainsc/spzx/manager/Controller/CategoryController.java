@@ -1,5 +1,6 @@
 package org.rainsc.spzx.manager.Controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.rainsc.spzx.manager.Service.CategoryService;
 import org.rainsc.spzx.model.entity.product.Category;
 import org.rainsc.spzx.model.vo.common.Result;
@@ -18,6 +19,14 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    // excel导出
+    @GetMapping("/export")
+    public void exportData(HttpServletResponse response) {
+        categoryService.exportData(response);
+
+
+    }
 
     // 懒加载
     // 分类列表方法

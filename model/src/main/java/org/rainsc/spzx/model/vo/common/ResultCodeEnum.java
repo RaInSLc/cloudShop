@@ -18,7 +18,9 @@ public enum ResultCodeEnum {
 
     STOCK_LESS( 219, "库存不足"),
 
-    MENU_NULL(7001,"菜单输入项目不能为空")
+    MENU_NULL(7001,"菜单输入项目不能为空"),
+
+    EXCEL_ERR(8001,"excel文件导出异常");
 
     ;
 
