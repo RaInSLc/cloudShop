@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.rainsc.spzx.exception.R_Exception;
-import org.rainsc.spzx.manager.Mapper.SysRoleMapper;
 import org.rainsc.spzx.manager.Mapper.SysRoleUserMapper;
 import org.rainsc.spzx.manager.Mapper.SysUserMapper;
 import org.rainsc.spzx.manager.Service.SysUserService;
@@ -45,7 +44,7 @@ public class SysUserServiceImpl implements SysUserService {
         String redisCode = redisTemplate.opsForValue().get("user:validate:" + inCodeKey);
         // 为空或者不相等
         if (StrUtil.isEmpty(inCaptcha) || !StrUtil.equalsIgnoreCase(redisCode, inCaptcha)) {
-            throw new R_Exception(ResultCodeEnum.VALIDATECODE_ERROR);
+            throw new R_Exception(ResultCodeEnum.VALIDATE_CODE_ERROR);
         }
         // 相同后删除验证码
         redisTemplate.delete("user:validate:" + inCodeKey);
