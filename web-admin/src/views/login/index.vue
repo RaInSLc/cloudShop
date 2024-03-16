@@ -1,7 +1,6 @@
-<!--登录页面-->
 <template>
   <div class="login">
-    <el-form class="form" :model="model" :rules="rules" ref="loginForm">
+    <el-form class="form" :model="model" :rules="rules" ref="loginForm" @keyup.enter.native="submit">
       <h1 class="title">尚品甄选后台管理系统</h1>
       <el-form-item prop="userName">
         <el-input
@@ -54,7 +53,7 @@
 </template>
 
 <script>
-import {computed, defineComponent, getCurrentInstance, onMounted, reactive, ref, toRefs, watch,} from 'vue'
+import {computed, defineComponent, getCurrentInstance, onMounted, reactive, ref, toRefs, watch} from 'vue'
 import {GetValidateCode, Login} from '@/api/login'
 import {useRoute, useRouter} from 'vue-router'
 import ChangeLang from '@/layout/components/Topbar/ChangeLang.vue'
