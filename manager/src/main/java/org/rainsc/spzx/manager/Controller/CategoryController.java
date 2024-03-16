@@ -6,10 +6,8 @@ import org.rainsc.spzx.model.entity.product.Category;
 import org.rainsc.spzx.model.vo.common.Result;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,8 +22,13 @@ public class CategoryController {
     @GetMapping("/exportData")
     public void exportData(HttpServletResponse response) {
         categoryService.exportData(response);
+    }
 
-
+    // 导入 上传excel
+    @PostMapping("/importData")
+    public Result importData(MultipartFile file) {
+        categoryService.importData(file);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     // 懒加载

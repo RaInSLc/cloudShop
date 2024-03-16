@@ -1,17 +1,20 @@
 package org.rainsc.spzx.manager.Service.impl;
 
+
 import com.alibaba.excel.EasyExcel;
+import com.github.xiaoymin.knife4j.core.util.CollectionUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.rainsc.spzx.exception.R_Exception;
 import org.rainsc.spzx.manager.Mapper.CategoryMapper;
 import org.rainsc.spzx.manager.Service.CategoryService;
+import org.rainsc.spzx.manager.listener.ExcelListener;
 import org.rainsc.spzx.model.entity.product.Category;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.rainsc.spzx.model.vo.product.CategoryExcelVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -83,5 +86,21 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
 
+    }
+
+    // 导入
+    @Override
+    public void importData(MultipartFile file) {
+        // 将excel解析加载到数据库中
+        try {
+            // 监听器
+            // 每次读取文件都创建新的监听器 避免并发问题
+            ExcelListener<CategoryExcelVo> excelListener = new ExcelListener(categoryMapper);
+            EasyExcel.read(file.getInputStream(), CategoryExcelVo.class, excelListener)
+                    .sheet().doRead();
+        } catch (Exception e) {
+//            throw new RuntimeException(e);
+            throw new R_Exception(ResultCodeEnum.EXCEL_IN_ERR);
+        }
     }
 }
