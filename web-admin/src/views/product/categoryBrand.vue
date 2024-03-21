@@ -141,7 +141,7 @@ const handleCurrentChange = number => {
 
 // 分页列表查询
 const fetchData = async () => {
-  if (searchCategoryIdList.value.length == 3) {
+  if (searchCategoryIdList.value.length === 3) {
     queryDto.value.categoryId = searchCategoryIdList.value[2]
   }
   const { data } = await GetCategoryBrandPageList( pageParams.value.page, pageParams.value.limit, queryDto.value)
