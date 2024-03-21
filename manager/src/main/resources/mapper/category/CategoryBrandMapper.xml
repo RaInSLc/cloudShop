@@ -18,8 +18,8 @@
                b.name as brandName,
                b.logo
         from category_brand cb
-                 inner join category c on cb.category_id = c.id
-                 inner join brand b on cb.brand_id = b.id
+                 left join category c on cb.category_id = c.id
+                 left join brand b on cb.brand_id = b.id
         <where>
             <if test="brandId != null and brandId != ''">
                 and cb.brand_id = #{brandId}
