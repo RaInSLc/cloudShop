@@ -11,4 +11,6 @@ public interface BrandMapper {
     List<Brand> findByPage();
 
     void save(Brand brand);
+
+    List<Brand> findAll();
 }

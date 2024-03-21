@@ -23,4 +23,13 @@
         insert into brand (id, name, logo, create_time, update_time, is_deleted)
         values (#{id}, #{name}, #{logo}, now(), now(), 0)
     </insert>
+<!--查询所有品牌-->
+    <select id="findAll" resultType="org.rainsc.spzx.model.entity.product.Brand">
+        select
+        <include refid="columns">
+        </include>
+        from brand
+        where is_deleted = 0
+        order by id desc
+    </select>
 </mapper>

@@ -30,4 +30,10 @@ public class BrandServiceImpl implements BrandService {
     public void save(Brand brand) {
         brandMapper.save(brand);
     }
+
+    @Override
+    public List<Brand> findAll() {
+
+        return brandMapper.findAll();
+    }
 }
