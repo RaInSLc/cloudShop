@@ -16,8 +16,10 @@
             :on-success="handleAvatarSuccess"
             :headers="headers"
         >
-          <img v-if="brand.logo" :src="brand.logo" class="avatar" />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          <img v-if="brand.logo" :src="brand.logo" class="avatar"/>
+          <el-icon v-else class="avatar-uploader-icon">
+            <Plus/>
+          </el-icon>
         </el-upload>
       </el-form-item>
       <el-form-item>
@@ -56,20 +58,18 @@
 </template>
 
 <script setup>
-import { ref , onMounted } from 'vue'
+import {onMounted, ref} from 'vue'
 
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { useApp } from '@/pinia/modules/app'
-import { GetBrandPageList , SaveBrand , UpdateBrandById , DeleteBrandById} from '@/api/brand.js'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {useApp} from '@/pinia/modules/app'
+import {DeleteBrandById, GetBrandPageList, SaveBrand, UpdateBrandById} from '@/api/brand.js'
 
 
 // 显示编辑品牌表单
 const editShow = (row) => {
-  brand.value = { ...row } // 将行数据复制到编辑表单数据中
+  brand.value = {...row} // 将行数据复制到编辑表单数据中
   dialogVisible.value = true // 显示编辑对话框
 }
-
-
 
 //删除
 const remove = async id => {
