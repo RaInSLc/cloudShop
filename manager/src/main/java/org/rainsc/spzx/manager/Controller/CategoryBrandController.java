@@ -7,10 +7,7 @@ import org.rainsc.spzx.model.entity.product.CategoryBrand;
 import org.rainsc.spzx.model.vo.common.Result;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/admin/product/categoryBrand")
@@ -27,4 +24,12 @@ public class CategoryBrandController {
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.findByPage(page, limit,categoryBrandDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
+
+    // 添加
+    @PostMapping("/save")
+    public Result save(@RequestBody CategoryBrand categoryBrand) {
+        categoryBrandService.save(categoryBrand);
+        return Result.build(null , ResultCodeEnum.SUCCESS) ;
+    }
+    // todo 删除 修改
 }
