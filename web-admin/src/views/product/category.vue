@@ -33,7 +33,7 @@
     </el-table-column>
     <el-table-column prop="orderNum" label="排序" />
     <el-table-column prop="status" label="状态" #default="scope">
-      {{ scope.row.status == 1 ? '正常' : '停用' }}
+      {{ scope.row.status === 1 ? '正常' : '停用' }}
     </el-table-column>
     <el-table-column prop="createTime" label="创建时间" />
   </el-table>
