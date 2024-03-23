@@ -40,9 +40,37 @@
   </div>
 
   <div class="tools-div">
-    <el-button type="success" size="small">添 加</el-button>
+    <el-button type="success" size="small" @click="addShow">添 加</el-button>
   </div>
-
+  <el-dialog v-model="dialogVisible" title="添加或修改" width="30%">
+    <el-form label-width="120px">
+      <el-form-item label="品牌">
+        <el-select
+            class="m-2"
+            placeholder="选择品牌"
+            size="small"
+            v-model="categoryBrand.brandId"
+        >
+          <el-option
+              v-for="item in brandList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="分类">
+        <el-cascader
+            :props="categoryProps"
+            v-model="categoryBrand.categoryId"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="saveOrUpdate">提交</el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
   <el-table :data="list" style="width: 100%">
     <el-table-column prop="categoryName" label="分类" />
     <el-table-column prop="brandName" label="品牌" />
@@ -75,7 +103,50 @@
 import { ref , onMounted } from 'vue'
 import { FindAllBrand } from '@/api/brand.js'
 import { FindCategoryByParentId } from '@/api/category.js'
-import { GetCategoryBrandPageList } from '@/api/categoryBrand.js'
+import { GetCategoryBrandPageList,SaveCategoryBrand } from '@/api/categoryBrand.js'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
+
+const defaultForm = {       //页面表单数据
+  id: '',
+  brandId: '',
+  categoryId: '',
+}
+const categoryBrand = ref(defaultForm)
+
+const dialogVisible = ref(false)
+
+//进入添加
+const addShow = () => {
+  categoryBrand.value = {}
+  dialogVisible.value = true
+}
+
+//提交保存与修改
+const saveOrUpdate = () => {
+  if (categoryBrand.value.brandId === '') {
+    ElMessage.info('品牌信息必须选择')
+    return
+  }
+  //categoryId为数组：[1,2,3]
+  if (categoryBrand.value.categoryId.length !== 3) {
+    ElMessage.info('分类信息必须选择')
+    return
+  }
+  //系统只需要三级分类id
+  categoryBrand.value.categoryId = categoryBrand.value.categoryId[2]
+  if (!categoryBrand.value.id) {
+    saveData()
+  }
+}
+
+// 新增
+const saveData = async () => {
+  await SaveCategoryBrand(categoryBrand.value)
+  dialogVisible.value = false
+  ElMessage.success('操作成功')
+  fetchData()
+}
 
 const props = {
   lazy: true,
@@ -112,7 +183,7 @@ const searchCategoryIdList = ref([])
 //分页条数据模型
 const pageParamsForm = {
   page: 1,   // 页码
-  limit: 2, // 每页记录数
+  limit: 10, // 每页记录数
 }
 const pageParams = ref(pageParamsForm)
 
@@ -132,6 +203,7 @@ const resetData = () => {
 //分页变化
 const handleSizeChange = size => {
   pageParams.value.limit = size
+  pageParams.value.page = 1
   fetchData()
 }
 const handleCurrentChange = number => {
@@ -145,6 +217,7 @@ const fetchData = async () => {
     queryDto.value.categoryId = searchCategoryIdList.value[2]
   }
   const { data } = await GetCategoryBrandPageList( pageParams.value.page, pageParams.value.limit, queryDto.value)
+  // const { data } = await GetCategoryBrandPageList(page, limit, queryDto.value);
   list.value = data.list
   total.value = data.total
 }

@@ -10,3 +10,12 @@ export const GetCategoryBrandPageList = (page, limit, searchObj) => {
         params: searchObj,
     })
 }
+
+// 保存信息
+export const SaveCategoryBrand = categoryBrand => {
+    return request({
+        url: `${api_name}/save`,
+        method: 'post',
+        data: categoryBrand,
+    })
+}
