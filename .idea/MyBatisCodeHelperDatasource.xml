@@ -3,12 +3,13 @@
   <component name="MyBatisCodeHelperDatasource">
     <option name="projectProfile">
       <ProjectProfile>
-        <option name="mapperFilesFolder" value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\category" />
+        <option name="mapperFilesFolder" value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\product" />
         <option name="mapperFilesFolderList">
           <list>
             <option value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\role" />
             <option value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\menu" />
             <option value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\category" />
+            <option value="E:\learning\2024\spzx\spzx-server\manager\src\main\resources\mapper\product" />
           </list>
         </option>
       </ProjectProfile>
