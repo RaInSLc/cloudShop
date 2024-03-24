@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value="/admin/product/product")
+@RequestMapping(value = "/admin/product/product")
 public class ProductController {
 
     @Autowired
-    private ProductService productService ;
+    private ProductService productService;
 
     // 条件分页查询
     @GetMapping(value = "/{page}/{limit}")
     public Result<PageInfo<Product>> findByPage(@PathVariable Integer page, @PathVariable Integer limit, ProductDto productDto) {
         PageInfo<Product> pageInfo = productService.findByPage(page, limit, productDto);
-        return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
+        return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 
 }
