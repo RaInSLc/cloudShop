@@ -39,4 +39,9 @@ public class ProductSpecServiceImpl implements ProductSpecService {
     public void delById(Long id) {
         productSpecMapper.delById(id);
     }
+
+    @Override
+    public List<ProductSpec> findAll() {
+        return productSpecMapper.findAll();
+    }
 }

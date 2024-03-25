@@ -43,4 +43,10 @@
             is_deleted  = 1
         where id = #{id}
     </update>
+
+    <select id="findAll" resultType="org.rainsc.spzx.model.entity.product.ProductSpec">
+        select <include refid="columns" />
+        from product_spec
+        order by id desc
+    </select>
 </mapper>
