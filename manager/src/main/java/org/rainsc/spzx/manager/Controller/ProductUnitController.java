@@ -17,9 +17,9 @@ public class ProductUnitController {
 
     @Autowired
     private ProductUnitService productUnitService;
-    
+    // 商品单元数据
     @GetMapping("findAll")
-    public Result<List<ProductUnit>> findAll() {
+    public Result findAll() {
         List<ProductUnit> productUnitList = productUnitService.findAll();
         return Result.build(productUnitList , ResultCodeEnum.SUCCESS) ;
     }

@@ -12,6 +12,7 @@ import java.util.List;
 public class ProductUnitServiceImpl implements ProductUnitService {
     @Autowired
     private ProductUnitMapper productUnitMapper;
+    // 加载商品单元数据
     @Override
     public List<ProductUnit> findAll() {
         return productUnitMapper.findAll() ;
