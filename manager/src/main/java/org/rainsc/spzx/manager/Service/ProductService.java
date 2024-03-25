@@ -6,4 +6,6 @@ import org.rainsc.spzx.model.entity.product.Product;
 
 public interface ProductService {
     PageInfo<Product> findByPage(Integer page, Integer limit, ProductDto productDto);
+
+    void save(Product product);
 }
