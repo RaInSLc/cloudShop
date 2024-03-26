@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.rainsc.spzx.manager.Service.ProductService;
 import org.rainsc.spzx.model.dto.product.ProductDto;
 import org.rainsc.spzx.model.entity.product.Product;
@@ -27,7 +28,21 @@ public class ProductController {
     @PostMapping("/save")
     public Result save(@RequestBody Product product) {
         productService.save(product);
-        return Result.build(null , ResultCodeEnum.SUCCESS) ;
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    // 根据id查询商品信息
+    @GetMapping("/getById/{id}")
+    public Result<Product> getById(@PathVariable Long id) {
+        Product product = productService.getById(id);
+        return Result.build(product, ResultCodeEnum.SUCCESS);
+    }
+
+    //保存修改数据接口
+    @PutMapping("/updateById")
+    public Result updateById(@Parameter(name = "product", description = "请求参数实体类", required = true) @RequestBody Product product) {
+        productService.updateById(product);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
 }

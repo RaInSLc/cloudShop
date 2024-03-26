@@ -6,4 +6,6 @@ import org.rainsc.spzx.model.entity.product.ProductDetails;
 @Mapper
 public interface ProductDetailsMapper {
     void save(ProductDetails productDetails);
+
+    ProductDetails selectByProductId(Long id);
 }

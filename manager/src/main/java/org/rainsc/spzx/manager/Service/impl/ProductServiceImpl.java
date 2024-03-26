@@ -12,6 +12,7 @@ import org.rainsc.spzx.model.entity.product.ProductDetails;
 import org.rainsc.spzx.model.entity.product.ProductSku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -62,5 +63,30 @@ public class ProductServiceImpl implements ProductService {
         productDetails.setProductId(product.getId());
         productDetails.setImageUrls(product.getDetailsImageUrls());
         productDetailsMapper.save(productDetails);
+    }
+
+    // 根据id查询商品信息
+    @Override
+    public Product getById(Long id) {
+        // 根据id查询商品数据
+        Product product = productMapper.selectById(id);
+
+        // 根据商品的id查询sku数据
+        List<ProductSku> productSkuList = productSkuMapper.selectByProductId(id);
+        product.setProductSkuList(productSkuList);
+
+        // 根据商品的id查询商品详情数据
+        ProductDetails productDetails = productDetailsMapper.selectByProductId(product.getId());
+        product.setDetailsImageUrls(productDetails.getImageUrls());
+
+        // 返回数据
+        return product;
+    }
+
+    // 保存修改数据接口
+    @Transactional
+    @Override
+    public void updateById(Product product) {
+
     }
 }
