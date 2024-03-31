@@ -100,8 +100,7 @@
         审批
       </el-button>
       <el-button
-          v-if=" scope.row.auditStatus == 1 && (scope.row.status == 0 || scope.row.status == -1)
-          && scope.row.status == 0 "
+          v-if="scope.row.auditStatus === 1 && (scope.row.status === 0 || scope.row.status === -1)"
           type="warning"
           size="small"
           @click="updateStatus(scope.row.id, 1)"
@@ -110,10 +109,7 @@
         上架
       </el-button>
       <el-button
-          v-if="
-            scope.row.auditStatus == 1 &&
-              (scope.row.status == 0 || scope.row.status == 1) && scope.row.status == 1
-          "
+          v-if="scope.row.auditStatus === 1 && scope.row.status === 1"
           type="warning"
           plain
           size="small"
@@ -123,6 +119,7 @@
         下架
       </el-button>
     </el-table-column>
+
   </el-table>
 
   <el-pagination
