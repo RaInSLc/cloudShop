@@ -1,0 +1,245 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 2147483648 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3829), pid=3440, tid=2616
+#
+# JRE version:  (17.0.8.1+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.8.1+7-b1000.32, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Djava.rmi.server.hostname=127.0.0.1 -Duser.timezone=UTC -Xmx20g -Xms2g -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890 -Dhttp.nonProxyHosts=localhost|127.0.0.1 -Dhttps.nonProxyHosts=localhost|127.0.0.1 -Djna.boot.library.path=D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3/lib/jna/amd64 -Djna.nosys=true -Djna.noclasspath=true -Djdbc.classpath=D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\plugins\DatabaseTools\lib\jdbc-console.jar;C:\Users\77892\AppData\Roaming\JetBrains\IntelliJIdea2023.2\jdbc-drivers\MySQL ConnectorJ\8.0.25\mysql-connector-java-8.0.25.jar --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED -Dfile.encoding=UTF-8 com.intellij.database.remote.RemoteJdbcServer com.mysql.cj.jdbc.Driver
+
+Host: Intel(R) Core(TM) i5-8300H CPU @ 2.30GHz, 8 cores, 23G,  Windows 10 , 64 bit Build 19041 (10.0.19041.3636)
+Time: Sun Mar 31 14:26:56 2024  Windows 10 , 64 bit Build 19041 (10.0.19041.3636) elapsed time: 0.013163 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000021696583f60):  JavaThread "Unknown thread" [_thread_in_vm, id=2616, stack(0x000000f40c600000,0x000000f40c700000)]
+
+Stack: [0x000000f40c600000,0x000000f40c700000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6852da]
+V  [jvm.dll+0x844c84]
+V  [jvm.dll+0x84659e]
+V  [jvm.dll+0x846c03]
+V  [jvm.dll+0x24b7cf]
+V  [jvm.dll+0x682049]
+V  [jvm.dll+0x67671a]
+V  [jvm.dll+0x30be2b]
+V  [jvm.dll+0x3132d6]
+V  [jvm.dll+0x36302e]
+V  [jvm.dll+0x36325f]
+V  [jvm.dll+0x2e1f48]
+V  [jvm.dll+0x2e2eb4]
+V  [jvm.dll+0x815c11]
+V  [jvm.dll+0x370df1]
+V  [jvm.dll+0x7f4fdc]
+V  [jvm.dll+0x3f3f1f]
+V  [jvm.dll+0x3f5b31]
+C  [jli.dll+0x528f]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17344]
+C  [ntdll.dll+0x526b1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffbff4600d8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00000216a9ba1ac0 GCTaskThread "GC Thread#0" [stack: 0x000000f40c700000,0x000000f40c800000] [id=8632]
+  0x0000021696609bb0 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000f40c800000,0x000000f40c900000] [id=21564]
+  0x000002169660a5c0 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000f40c900000,0x000000f40ca00000] [id=9628]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffbfec12ab7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000021696580a10] Heap_lock - owner thread: 0x0000021696583f60
+
+Heap address: 0x0000000300000000, size: 20480 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000300000000, 0x0000000800000000)
+  region size 16384K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 0K, committed 0K, reserved 0K
+  class space    used 0K, committed 0K, reserved 0K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, OA=open archive, CA=closed archive, TAMS=top-at-mark-start (previous, next)
+
+Card table byte_map: [0x00000216ac500000,0x00000216aed00000] _byte_map_base: 0x00000216aad00000
+
+Marking Bits (Prev, Next): (CMBitMap*) 0x00000216965ff280, (CMBitMap*) 0x00000216965ff2c0
+ Prev Bits: [0x00000216b1500000, 0x00000216c5500000)
+ Next Bits: [0x00000216c5500000, 0x00000216d9500000)
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.009 Loaded shared library D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6977d0000 - 0x00007ff6977da000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\java.exe
+0x00007ffc60a90000 - 0x00007ffc60c88000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffc5eb70000 - 0x00007ffc5ec2d000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffc5e630000 - 0x00007ffc5e926000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffc5e2d0000 - 0x00007ffc5e3d0000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffc55b70000 - 0x00007ffc55b87000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\jli.dll
+0x00007ffc580f0000 - 0x00007ffc5810b000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\VCRUNTIME140.dll
+0x00007ffc60330000 - 0x00007ffc604ce000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffc5e140000 - 0x00007ffc5e162000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffc4a9e0000 - 0x00007ffc4ac7a000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.3636_none_60b6a03d71f818d5\COMCTL32.dll
+0x00007ffc5ff70000 - 0x00007ffc5ff9b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffc5e510000 - 0x00007ffc5e627000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffc5f680000 - 0x00007ffc5f71e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffc5e9f0000 - 0x00007ffc5ea8d000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffc602f0000 - 0x00007ffc60322000 	C:\WINDOWS\System32\IMM32.DLL
+0x00000000638e0000 - 0x00000000638ed000 	D:\Program Files (x86)\360\360Safe\safemon\SafeWrapper.dll
+0x00007ffc5f570000 - 0x00007ffc5f620000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffc60240000 - 0x00007ffc602df000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffc605b0000 - 0x00007ffc606d5000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffc5ea90000 - 0x00007ffc5eab7000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ffc49980000 - 0x00007ffc49a2c000 	D:\Program Files (x86)\360\360Safe\safemon\libzdtp64.dll
+0x00007ffc5ee00000 - 0x00007ffc5f56a000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffc60550000 - 0x00007ffc605a5000 	C:\WINDOWS\System32\SHLWAPI.dll
+0x00007ffc5dca0000 - 0x00007ffc5dcaa000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffc58470000 - 0x00007ffc5847c000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\vcruntime140_1.dll
+0x00007ffc2ccc0000 - 0x00007ffc2cd4d000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\msvcp140.dll
+0x00007ffbfe920000 - 0x00007ffbff5a3000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\server\jvm.dll
+0x00007ffc476e0000 - 0x00007ffc476e9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffc5d670000 - 0x00007ffc5d6bb000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffc51250000 - 0x00007ffc51277000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffc5ffa0000 - 0x00007ffc6000b000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffc5d4e0000 - 0x00007ffc5d4f2000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffc5c960000 - 0x00007ffc5c972000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffc55ba0000 - 0x00007ffc55baa000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\jimage.dll
+0x00007ffc5c470000 - 0x00007ffc5c654000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffc3c700000 - 0x00007ffc3c734000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffc5e3d0000 - 0x00007ffc5e452000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffc55b40000 - 0x00007ffc55b65000 	D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.3636_none_60b6a03d71f818d5;D:\Program Files (x86)\360\360Safe\safemon;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\jbr\bin\server
+
+VM Arguments:
+jvm_args: -Djava.rmi.server.hostname=127.0.0.1 -Duser.timezone=UTC -Xmx20g -Xms2g -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890 -Dhttp.nonProxyHosts=localhost|127.0.0.1 -Dhttps.nonProxyHosts=localhost|127.0.0.1 -Djna.boot.library.path=D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3/lib/jna/amd64 -Djna.nosys=true -Djna.noclasspath=true -Djdbc.classpath=D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\plugins\DatabaseTools\lib\jdbc-console.jar;C:\Users\77892\AppData\Roaming\JetBrains\IntelliJIdea2023.2\jdbc-drivers\MySQL ConnectorJ\8.0.25\mysql-connector-java-8.0.25.jar --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED -Dfile.encoding=UTF-8 
+java_command: com.intellij.database.remote.RemoteJdbcServer com.mysql.cj.jdbc.Driver
+java_class_path (initial): D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\lib\util_rt.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\lib\util-8.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\lib\groovy.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\plugins\DatabaseTools\lib\jdbc-console.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\plugins\grid-core-impl\lib\jdbc-console-types.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\lib\util.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\lib\bouncy-castle.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 16777216                                  {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 2147483648                                {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 21474836480                               {product} {command line}
+   size_t MinHeapDeltaBytes                        = 16777216                                  {product} {ergonomic}
+   size_t MinHeapSize                              = 2147483648                                {product} {command line}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 21474836480                            {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\zulu\8
+CLASSPATH=.;C:\zulu\8\lib;C:\zulu\8\lib\tools.jar
+PATH=C:\WINDOWS\system32\WBEM;C:\WINDOWS\system32\WBEM;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32\WBEM;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;E:\Program Files\Bandizip\;C:\Users\77892\AppData\Local\Microsoft\WindowsApps;D:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;D:\Program Files\Microsoft SQL Server\160\Tools\Binn\;D:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Program Files\Microsoft SQL Server\160\DTS\Binn\;E:\Program Files (x86)\NetSarang\Xshell 7\;D:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\zulu\8\bin;d:\Program Files\JetBrains\DataGrip 2023.2.2\bin;d:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;d:\Programs\Microsoft VS Code\bin;E:\Program Files (x86)\NetSarang\Xftp 7\;E:\Program Files\Typora_plugin\pandoc-3.1.8;C:\Program Files\dotnet\;D:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;D:\python27;C:\Android;C:\Windows\System32;C:\QuickStart;D:\Program Files\PowerShell\7\;E:\Program Files (x86)\gs\gs9.23\bin;E:\maven\apache-maven-3.8.6\bin;E:\Program Files\Git\cmd;C:\Users\77892\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Azure Data Studio\bin;d:\Program Files\JetBrains\DataGrip 2023.2.2\bin;;d:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;;d:\Programs\Microsoft VS Code\bin;C:\Users\77892\.dotnet\tools;D:\Program Files (x86)\Nmap;C:\Users\77892\AppData\Roaming\npm;D:\Program Files\JetBrains\PyCharm 2023.2.5\bin;
+USERNAME=rain
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+TMP=C:\Users\77892\AppData\Local\Temp
+TEMP=C:\Users\77892\AppData\Local\Temp
+
+
+JNI global refs:
+JNI global refs: 0, weak refs: 0
+
+JNI global refs memory usage: 0, weak refs: 0
+
+OOME stack traces (most recent first):
+Classloader memory used:
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.3636)
+OS uptime: 0 days 3:31 hours
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 158 stepping 10 microcode 0xde, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt
+Processor Information for all 8 processors :
+  Max Mhz: 2304, Current Mhz: 2304, Mhz Limit: 2304
+
+Memory: 4k page, system-wide physical 24450M (5711M free)
+TotalPageFile size 24450M (AvailPageFile size 836M)
+current process WorkingSet (physical memory assigned to process): 12M, peak: 12M
+current process commit charge ("private bytes"): 61M, peak: 2109M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.8.1+7-b1000.32) for windows-amd64 JRE (17.0.8.1+7-b1000.32), built on 2023-09-15 by "builduser" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.
