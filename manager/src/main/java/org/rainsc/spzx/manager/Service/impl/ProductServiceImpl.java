@@ -77,7 +77,8 @@ public class ProductServiceImpl implements ProductService {
 
         // 根据商品的id查询商品详情数据
         ProductDetails productDetails = productDetailsMapper.selectByProductId(product.getId());
-        product.setDetailsImageUrls(productDetails.getImageUrls());
+        String imageUrls = productDetails.getImageUrls();
+        product.setDetailsImageUrls(imageUrls);
 
         // 返回数据
         return product;
@@ -88,5 +89,27 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateById(Product product) {
 
+        // 修改商品基本数据
+        productMapper.updateById(product);
+
+        // 修改商品的sku数据
+        List<ProductSku> productSkuList = product.getProductSkuList();
+        productSkuList.forEach(productSku -> {
+            productSkuMapper.updateById(productSku);
+        });
+
+        // 修改商品的详情数据
+        ProductDetails productDetails = productDetailsMapper.selectByProductId(product.getId());
+        productDetails.setImageUrls(product.getDetailsImageUrls());
+        productDetailsMapper.updateById(productDetails);
+
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        productMapper.deleteById(id);                   // 根据id删除商品基本数据
+        productSkuMapper.deleteByProductId(id);         // 根据商品id删除商品的sku数据
+        productDetailsMapper.deleteByProductId(id);     // 根据商品的id删除商品的详情数据
     }
 }

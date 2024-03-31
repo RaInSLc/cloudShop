@@ -13,4 +13,8 @@ public interface ProductMapper {
     void save(Product product);
 
     Product selectById(Long id);
+
+    void updateById(Product product);
+
+    void deleteById(Long id);
 }
