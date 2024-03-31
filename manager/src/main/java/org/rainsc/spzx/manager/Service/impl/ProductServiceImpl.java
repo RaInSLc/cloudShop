@@ -127,4 +127,23 @@ public class ProductServiceImpl implements ProductService {
         }
         productMapper.updateById(product);
     }
+
+    // 商品上下架
+    @Override
+    public void updateStatus(Long id, Integer status) {
+        Product product = productMapper.selectById(id); // 获取当前商品状态
+        if (product != null) {
+            if (status == 1) {
+                // 如果当前状态为下架状态，才进行重新上架操作
+                if (product.getStatus() == -1) {
+                    product.setStatus(1);
+                    productMapper.updateById(product); // 更新商品状态为上架状态
+                }
+            } else {
+                product.setStatus(-1);
+                productMapper.updateById(product); // 更新商品状态为下架状态
+            }
+        }
+    }
+
 }

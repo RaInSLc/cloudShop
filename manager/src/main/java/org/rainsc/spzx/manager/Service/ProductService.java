@@ -16,4 +16,6 @@ public interface ProductService {
     void deleteById(Long id);
 //    商品审核
     void updateAuditStatus(Long id, Integer auditStatus);
+
+    void updateStatus(Long id, Integer status);
 }

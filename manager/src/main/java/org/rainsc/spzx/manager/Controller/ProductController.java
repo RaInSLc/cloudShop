@@ -58,5 +58,11 @@ public class ProductController {
         productService.updateAuditStatus(id, auditStatus);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
+    //商品上下架
+    @GetMapping("/updateStatus/{id}/{status}")
+    public Result updateStatus(@PathVariable Long id, @PathVariable Integer status) {
+        productService.updateStatus(id, status);
+        return Result.build(null , ResultCodeEnum.SUCCESS) ;
+    }
 
 }
