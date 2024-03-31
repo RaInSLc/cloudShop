@@ -112,4 +112,19 @@ public class ProductServiceImpl implements ProductService {
         productSkuMapper.deleteByProductId(id);         // 根据商品id删除商品的sku数据
         productDetailsMapper.deleteByProductId(id);     // 根据商品的id删除商品的详情数据
     }
+
+    //    商品审核
+    @Override
+    public void updateAuditStatus(Long id, Integer auditStatus) {
+        Product product = new Product();
+        product.setId(id);
+        if (auditStatus == 1) {
+            product.setAuditStatus(1);
+            product.setAuditMessage("审批通过");
+        } else {
+            product.setAuditStatus(-1);
+            product.setAuditMessage("审批不通过");
+        }
+        productMapper.updateById(product);
+    }
 }

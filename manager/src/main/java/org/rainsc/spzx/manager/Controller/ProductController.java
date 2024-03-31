@@ -49,9 +49,14 @@ public class ProductController {
     @DeleteMapping("/deleteById/{id}")
     public Result deleteById(@Parameter(name = "id", description = "商品id", required = true) @PathVariable Long id) {
         productService.deleteById(id);
-        return Result.build(null , ResultCodeEnum.SUCCESS) ;
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-
+    // 商品审核
+    @GetMapping("/updateAuditStatus/{id}/{auditStatus}")
+    public Result updateAuditStatus(@PathVariable Long id, @PathVariable Integer auditStatus) {
+        productService.updateAuditStatus(id, auditStatus);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 
 }
