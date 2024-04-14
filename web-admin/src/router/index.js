@@ -5,6 +5,8 @@ import error from './modules/error'
 import login from './modules/login'
 import lock from './modules/lock'
 import home from './modules/home'
+import order from './modules/order'
+
 
 // 导入路由
 import system from './modules/system'
@@ -15,7 +17,8 @@ import product from './modules/product'
 // 固定菜单
 export const fixedRoutes = [...home]
 // 动态菜单
-export const asyncRoutes = [...system, ...product]
+export const asyncRoutes = [...system,...product,...order]
+
 
 const router = createRouter({
     history: createWebHashHistory(),
