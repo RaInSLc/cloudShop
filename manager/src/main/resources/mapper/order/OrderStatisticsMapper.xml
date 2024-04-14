@@ -3,5 +3,13 @@
 <mapper namespace="org.rainsc.spzx.manager.Mapper.OrderStatisticsMapper">
 
     <insert id="insert">
+        insert into order_statistics (id,
+                                      order_date,
+                                      total_amount,
+                                      total_num)
+        values (#{id},
+                #{orderDate},
+                #{totalAmount},
+                #{totalNum})
     </insert>
 </mapper>

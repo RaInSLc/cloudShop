@@ -8,10 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableConfigurationProperties(value = {UserProperties.class, MinioProperties.class})
 @ComponentScan(basePackages = {"org.rainsc.spzx"})
+@EnableScheduling
 public class ManagerApplication {
     public static void main(String[] args) {
         // 检查Redis是否正在运行  为杜绝前端不知道redis是否启动而进行疯狂重定向

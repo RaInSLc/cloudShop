@@ -22,10 +22,17 @@ public class OrderStatisticsTask {
     @Autowired
     private OrderStatisticsMapper orderStatisticsMapper;
 
+    // 每天2点统计前一天的数据
     @Scheduled(cron = "0 0 2 * * ?")
     public void orderTotalAmountStatistics() {
-        String createTime = DateUtil.offsetDay(new Date(), -1).toString(new SimpleDateFormat("yyyy-MM-dd"));
+        // 这是日志
+        log.info("这是定时任务的日志");
+        // 获取前一天的日期
+        String createTime = DateUtil.offsetDay(new Date(), -1)
+                .toString(new SimpleDateFormat("yyyy-MM-dd"));
+        // 根据前一天的日期统计交易
         OrderStatistics orderStatistics = orderInfoMapper.selectOrderStatistics(createTime);
+        // 统计后的数据添加到统计结果表中
         if (orderStatistics != null) {
             orderStatisticsMapper.insert(orderStatistics);
         }
