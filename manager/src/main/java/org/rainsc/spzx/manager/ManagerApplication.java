@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager;
 
 
+import org.rainsc.spzx.common.log.annotation.EnableLogAspect;
 import org.rainsc.spzx.manager.properties.MinioProperties;
 import org.rainsc.spzx.manager.properties.UserProperties;
 import org.rainsc.spzx.manager.serverUtils.RedisUtil;
@@ -9,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
+// 扫描自定义注解
+@EnableLogAspect
 @SpringBootApplication
 @EnableConfigurationProperties(value = {UserProperties.class, MinioProperties.class})
 @ComponentScan(basePackages = {"org.rainsc.spzx"})

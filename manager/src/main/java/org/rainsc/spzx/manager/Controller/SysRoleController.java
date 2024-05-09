@@ -1,6 +1,7 @@
 package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
+import org.rainsc.spzx.common.log.annotation.Log;
 import org.rainsc.spzx.manager.Service.SysRoleService;
 import org.rainsc.spzx.model.dto.system.SysRoleDto;
 import org.rainsc.spzx.model.entity.system.SysRole;
@@ -39,6 +40,7 @@ public class SysRoleController {
     }
 
     // 添加角色
+    @Log(title = "角色管理:添加", businessType = 1)
     @PostMapping(value = "/saveSysRole")
     public Result saveSysRole(@RequestBody SysRole sysRole) {
         sysRoleService.saveSysRole(sysRole);
@@ -66,8 +68,8 @@ public class SysRoleController {
 
     // 查询所有角色
     @GetMapping(value = "/findAllRoles/{userId}")
-    public Result<Map<String , Object>> findAllRoles(@PathVariable("userId") Long userId) {
+    public Result<Map<String, Object>> findAllRoles(@PathVariable("userId") Long userId) {
         Map<String, Object> resultMap = sysRoleService.findAllRoles(userId);
-        return Result.build(resultMap , ResultCodeEnum.SUCCESS)  ;
+        return Result.build(resultMap, ResultCodeEnum.SUCCESS);
     }
 }
