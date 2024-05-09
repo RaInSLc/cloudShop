@@ -30,7 +30,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         List<String> dateList = orderStatisticsList.stream()
                 .map(orderStatistics ->
-                        DateUtil.format(orderStatistics.getOrderDate(), "yyyy-mm-dd")).toList();
+                        DateUtil.format(orderStatistics.getOrderDate(), "yyyy-MM-dd")).toList();
 
 
         // 遍历list集合 得到所有日期对应的总金额 将总金额封装到新的list中
