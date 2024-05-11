@@ -1,6 +1,8 @@
 package org.rainsc.spzx.manager.Controller;
 
 import com.github.pagehelper.PageInfo;
+import org.rainsc.spzx.common.log.annotation.Log;
+import org.rainsc.spzx.common.log.enums.OperatorType;
 import org.rainsc.spzx.manager.Service.BrandService;
 import org.rainsc.spzx.model.entity.product.Brand;
 import org.rainsc.spzx.model.vo.common.Result;
@@ -39,6 +41,7 @@ public class BrandController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
+    @Log(title = "品牌管理:列表", businessType = 0,operatorType = OperatorType.MANAGE)
     @DeleteMapping(value = "/deleteById/{id}")
     public Result deleteById(@PathVariable(value = "id") Long id) {
 //        brandService.deleteById(id);
