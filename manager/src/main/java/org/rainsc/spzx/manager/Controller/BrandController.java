@@ -20,6 +20,7 @@ public class BrandController {
     private BrandService brandService;
 
     // 列表
+    @Log(title = "品牌管理:列表", businessType = 0, operatorType = OperatorType.MANAGE)
     @GetMapping("/{page}/{limit}")
     public Result list(@PathVariable Integer page,
                        @PathVariable Integer limit) {
@@ -41,7 +42,7 @@ public class BrandController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Log(title = "品牌管理:列表", businessType = 0,operatorType = OperatorType.MANAGE)
+
     @DeleteMapping(value = "/deleteById/{id}")
     public Result deleteById(@PathVariable(value = "id") Long id) {
 //        brandService.deleteById(id);
