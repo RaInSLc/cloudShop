@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 实现用户管理服务的接口
+ */
 @Service
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
@@ -34,6 +37,13 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysRoleUserMapper sysRoleUserMapper;
+
+    /**
+     * 用户登录
+     *
+     * @param loginDto 登录信息
+     * @return 登录结果
+     */
     @Override
     public LoginVo login(LoginDto loginDto) {
         // 获取redis中验证码code和前端code进行对比
@@ -84,6 +94,12 @@ public class SysUserServiceImpl implements SysUserService {
         return loginVo;
     }
 
+    /**
+     * 获取用户信息
+     *
+     * @param token 用户令牌
+     * @return 用户信息
+     */
     @Override
     public SysUser getUserInfo(String token) {
         // 在redis中获取用户信息
@@ -92,11 +108,24 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUser;
     }
 
+    /**
+     * 用户退出登录
+     *
+     * @param token 用户令牌
+     */
     @Override
     public void logout(String token) {
         redisTemplate.delete(CommonUse.REDIS_LOGIN_PREFIX + token);
     }
 
+    /**
+     * 分页查询用户列表
+     *
+     * @param pageNum    当前页码
+     * @param pageSize   每页大小
+     * @param sysUserDto 用户查询条件
+     * @return 分页结果
+     */
     @Override
     public PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize, SysUserDto sysUserDto) {
         PageHelper.startPage(pageNum, pageSize);
@@ -105,7 +134,11 @@ public class SysUserServiceImpl implements SysUserService {
         return pageInfo;
     }
 
-    // 添加
+    /**
+     * 添加用户
+     *
+     * @param sysUser 用户信息
+     */
     @Override
     public void saveSysUser(SysUser sysUser) {
         // 判断用户名是否存在 存在就抛出已存在
@@ -119,13 +152,15 @@ public class SysUserServiceImpl implements SysUserService {
         String md5_password = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
         // 放回password
         sysUser.setPassword(md5_password);
-
         sysUser.setStatus(1);
-
         sysUserMapper.saveSysUser(sysUser);
     }
-    // 修改用户
 
+    /**
+     * 更新用户信息
+     *
+     * @param sysUser 用户信息
+     */
     @Override
     public void updateSysUser(SysUser sysUser) {
 
@@ -149,13 +184,21 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.updateSysUser(sysUser);
     }
 
-
-    // 删除
+    /**
+     * 删除用户
+     *
+     * @param userId 用户ID
+     */
     @Override
     public void delSysUser(Long userId) {
         sysUserMapper.delSysUser(userId);
     }
 
+    /**
+     * 分配角色给用户
+     *
+     * @param assignRoleDto 分配角色信息
+     */
     @Override
     public void doAssign(AssignRoleDto assignRoleDto) {
         // 先根据userid 删除用户已有的角色数据
@@ -163,8 +206,8 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleUserMapper.delOldId(userId);
         // 分配新的角色
         List<Long> roleIdList = assignRoleDto.getRoleIdList();
-        for (Long roleId:roleIdList){
-            sysRoleUserMapper.doAssign(userId,roleId);
+        for (Long roleId : roleIdList) {
+            sysRoleUserMapper.doAssign(userId, roleId);
         }
     }
 }
