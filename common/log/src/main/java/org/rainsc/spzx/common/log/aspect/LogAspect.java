@@ -45,7 +45,8 @@ public class LogAspect {
             e.printStackTrace();
             log.error("Error message", e);
             LogUtil.afterHandlLog(sysLog, proceed, sysOperLog, 1, e.getMessage());
-            throw e;
+            // 抛出运行时异常给事务 避免内部异常导致的系统错误
+            throw new RuntimeException();
         }
 
         // 调用Service保存操作日志到数据库

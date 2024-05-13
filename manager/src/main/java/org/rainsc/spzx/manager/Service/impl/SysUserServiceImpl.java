@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.rainsc.spzx.common.log.annotation.Log;
 import org.rainsc.spzx.exception.R_Exception;
 import org.rainsc.spzx.manager.Mapper.SysRoleUserMapper;
 import org.rainsc.spzx.manager.Mapper.SysUserMapper;
@@ -18,6 +19,7 @@ import org.rainsc.spzx.model.vo.system.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;
@@ -199,10 +201,17 @@ public class SysUserServiceImpl implements SysUserService {
      *
      * @param assignRoleDto 分配角色信息
      */
+    @Log(title = "用户操作:分配角色", businessType = 0)
+    @Transactional
     @Override
     public void doAssign(AssignRoleDto assignRoleDto) {
         // 先根据userid 删除用户已有的角色数据
         Long userId = assignRoleDto.getUserId();
+
+        // todo 模拟异常情况
+        int a = 1 / 0;
+        System.out.println(a);
+
         sysRoleUserMapper.delOldId(userId);
         // 分配新的角色
         List<Long> roleIdList = assignRoleDto.getRoleIdList();
