@@ -9,27 +9,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>common-utils</module>
-        <module>common-service</module>
-        <module>log</module>
-    </modules>
+    <groupId>org.raisnc</groupId>
+    <artifactId>server-gateway</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.5.2</version>
-        </dependency>
-    </dependencies>
-
 
 </project>
