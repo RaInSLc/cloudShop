@@ -1,18 +1,23 @@
 package org.rainsc.spzx.product.service.impl;
 
 import org.rainsc.spzx.model.entity.product.ProductSku;
+import org.rainsc.spzx.product.mapper.ProductSkuMapper;
 import org.rainsc.spzx.product.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    @Autowired
+    private ProductSkuMapper productSkuMapper;
+
     /**
      * @return
      */
     @Override
     public List<ProductSku> findProductSkuBySale() {
-        return null;
+        return productSkuMapper.findProductSkuBySale();
     }
 }
