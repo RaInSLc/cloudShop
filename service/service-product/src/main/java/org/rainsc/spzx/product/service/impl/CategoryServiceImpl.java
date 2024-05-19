@@ -20,4 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findOneCategory() {
         return categoryMapper.findOneCategory();
     }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<Category> findCategoryTree() {
+        return null;
+    }
 }
