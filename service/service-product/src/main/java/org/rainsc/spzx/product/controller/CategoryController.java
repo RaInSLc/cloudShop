@@ -25,6 +25,7 @@ public class CategoryController {
     @Operation(summary = "获取分类树形数据")
     @GetMapping("findCategoryTree")
     public Result<List<Category>> findCategoryTree() {
+        // 树形结构 构造分类的层级
         List<Category> list = categoryService.findCategoryTree();
         return Result.build(list, ResultCodeEnum.SUCCESS);
     }

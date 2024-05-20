@@ -16,4 +16,13 @@
           and is_deleted = 0
         order by order_num
     </select>
+
+    <select id="findAll" resultType="org.rainsc.spzx.model.entity.product.Category">
+        select
+        <include refid="columns">
+        </include>
+        from category
+        where is_deleted = 1
+        order by order_num
+    </select>
 </mapper>
