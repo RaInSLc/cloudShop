@@ -22,7 +22,7 @@
         <include refid="columns">
         </include>
         from category
-        where is_deleted = 1
+        where is_deleted = 0
         order by order_num
     </select>
 </mapper>
