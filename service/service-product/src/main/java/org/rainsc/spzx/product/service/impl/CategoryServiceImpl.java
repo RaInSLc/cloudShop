@@ -26,14 +26,36 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<Category> findCategoryTree() {
-        // 查询到所有的分类
+        // 查询所有分类
+        // 获取所有分类信息
         List<Category> allCategoryList = categoryMapper.findAll();
-        // 遍历分类list  parentId=0 得到所有的一级分类
 
-        // 遍历一级分类 id = parentId, 得到二级分类
+        // 遍历总分类List 过滤出一级分类列表
+        List<Category> firstCategoryList = allCategoryList.stream()
+                // 过滤出parentId为0的分类，即一级分类
+                .filter(item -> item.getParentId().longValue() == 0)
+                .toList();
 
-        // 遍历二级分类 id = parentId, 得到三级分类
+        // 遍历一级分类，为每个一级分类添加二级分类
+        firstCategoryList.forEach(firstCategory -> {
+            List<Category> secondCategoryList = allCategoryList.stream()
+                    // 过滤出parentId等于当前一级分类id的分类，即二级分类
+                    .filter(item -> item.getParentId() == firstCategory.getId())
+                    .toList();
+            // 将二级分类列表封装到一级分类中
+            firstCategory.setChildren(secondCategoryList);
 
-        return null;
+            // 遍历二级分类，为每个二级分类添加三级分类
+            secondCategoryList.forEach(secondCategory -> {
+                List<Category> thirdCategoryList = allCategoryList.stream()
+                        // 过滤出parentId等于当前二级分类id的分类，即三级分类
+                        .filter(item -> item.getParentId() == secondCategory.getId())
+                        .toList();
+                // 将三级分类列表封装到二级分类中
+                secondCategory.setChildren(thirdCategoryList);
+            });
+        });
+        // 返回包含完整分类树的一级分类列表
+        return firstCategoryList;
     }
 }
