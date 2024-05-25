@@ -5,12 +5,14 @@ import org.rainsc.spzx.model.entity.product.Category;
 import org.rainsc.spzx.product.mapper.CategoryMapper;
 import org.rainsc.spzx.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -49,6 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * @return 树形结构 构造分类的层级 按层级返回分类
      */
+    @Cacheable(value = "category", key = "'all'")
     @Override
     public List<Category> findCategoryTree() {
         // 查询所有分类
@@ -59,14 +62,14 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> firstCategoryList = allCategoryList.stream()
                 // 过滤出parentId为0的分类，即一级分类
                 .filter(item -> item.getParentId().longValue() == 0)
-                .toList();
+                .collect(Collectors.toList());
 
         // 遍历一级分类，为每个一级分类添加二级分类
         firstCategoryList.forEach(firstCategory -> {
             List<Category> secondCategoryList = allCategoryList.stream()
                     // 过滤出parentId等于当前一级分类id的分类，即二级分类
                     .filter(item -> item.getParentId() == firstCategory.getId())
-                    .toList();
+                    .collect(Collectors.toList());
             // 将二级分类列表封装到一级分类中
             firstCategory.setChildren(secondCategoryList);
 
@@ -75,7 +78,7 @@ public class CategoryServiceImpl implements CategoryService {
                 List<Category> thirdCategoryList = allCategoryList.stream()
                         // 过滤出parentId等于当前二级分类id的分类，即三级分类
                         .filter(item -> item.getParentId() == secondCategory.getId())
-                        .toList();
+                        .collect(Collectors.toList());
                 // 将三级分类列表封装到二级分类中
                 secondCategory.setChildren(thirdCategoryList);
             });
@@ -83,6 +86,4 @@ public class CategoryServiceImpl implements CategoryService {
         // 返回包含完整分类树的一级分类列表
         return firstCategoryList;
     }
-
-
 }
