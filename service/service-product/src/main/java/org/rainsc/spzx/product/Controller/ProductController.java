@@ -1,4 +1,4 @@
-package org.rainsc.spzx.product.controller;
+package org.rainsc.spzx.product.Controller;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,7 +8,8 @@ import org.rainsc.spzx.model.dto.h5.ProductSkuDto;
 import org.rainsc.spzx.model.entity.product.ProductSku;
 import org.rainsc.spzx.model.vo.common.Result;
 import org.rainsc.spzx.model.vo.common.ResultCodeEnum;
-import org.rainsc.spzx.product.service.ProductService;
+import org.rainsc.spzx.model.vo.h5.ProductItemVo;
+import org.rainsc.spzx.product.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,13 @@ public class ProductController {
              @Parameter(name = "productSkuDto", description = "搜索条件对象", required = false) ProductSkuDto productSkuDto) {
         PageInfo<ProductSku> pageInfo = productService.findByPage(page, limit, productSkuDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "商品详情")
+    @GetMapping("item/{skuId}")
+    public Result<ProductItemVo> item(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
+        ProductItemVo productItemVo = productService.item(skuId);
+        return Result.build(productItemVo , ResultCodeEnum.SUCCESS);
     }
 
 }

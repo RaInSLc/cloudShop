@@ -84,4 +84,19 @@
             order by sku.sale_price desc
         </if>
     </select>
+
+    <select id="getById" resultType="org.rainsc.spzx.model.entity.product.ProductSku">
+        select <include refid="columns" />
+        from product_sku
+        where
+        id = #{id}
+    </select>
+<!--    // 根据商品id 获取所有sku-->
+    <select id="findByProductId" resultType="org.rainsc.spzx.model.entity.product.ProductSku">
+
+        select <include refid="columns" />
+        from product_sku
+        where
+        product_id = #{productId}
+    </select>
 </mapper>
