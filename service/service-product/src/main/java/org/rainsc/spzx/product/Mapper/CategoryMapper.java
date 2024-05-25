@@ -1,4 +1,4 @@
-package org.rainsc.spzx.product.mapper;
+package org.rainsc.spzx.product.Mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.rainsc.spzx.model.entity.product.Category;

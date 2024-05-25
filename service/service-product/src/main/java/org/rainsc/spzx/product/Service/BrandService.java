@@ -1,4 +1,4 @@
-package org.rainsc.spzx.product.service;
+package org.rainsc.spzx.product.Service;
 
 import org.rainsc.spzx.model.entity.product.Brand;
 

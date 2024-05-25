@@ -1,9 +1,9 @@
-package org.rainsc.spzx.product.service.impl;
+package org.rainsc.spzx.product.Service.impl;
 
 import com.alibaba.fastjson.JSON;
 import org.rainsc.spzx.model.entity.product.Category;
-import org.rainsc.spzx.product.mapper.CategoryMapper;
-import org.rainsc.spzx.product.service.CategoryService;
+import org.rainsc.spzx.product.Mapper.CategoryMapper;
+import org.rainsc.spzx.product.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;

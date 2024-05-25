@@ -1,12 +1,11 @@
-package org.rainsc.spzx.product.service.impl;
+package org.rainsc.spzx.product.Service.impl;
 
 import org.rainsc.spzx.model.entity.product.Brand;
-import org.rainsc.spzx.product.mapper.BrandMapper;
-import org.rainsc.spzx.product.service.BrandService;
+import org.rainsc.spzx.product.Mapper.BrandMapper;
+import org.rainsc.spzx.product.Service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
