@@ -38,3 +38,5 @@ dump.rdb
 #### TOOLS
 /TOOLS/
 /web-user/nginx-1.24.0/logs/
+### 日志
+/logs/
