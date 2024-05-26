@@ -18,6 +18,14 @@ public class Knife4jConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi webApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("web-api")         // 分组名称
+                .pathsToMatch("/api/**")  // 接口请求路径规则
+                .build();
+    }
+
     /***
      * @description 自定义接口信息
      */
@@ -31,13 +39,4 @@ public class Knife4jConfig {
                         .description("API接口文档")
                         .contact(new Contact().name("rainsc"))); // 设定作者
     }
-
-    @Bean
-    public GroupedOpenApi webApi() {      // 创建了一个api接口的分组
-        return GroupedOpenApi.builder()
-                .group("web-api")         // 分组名称
-                .pathsToMatch("/api/**")  // 接口请求路径规则
-                .build();
-    }
-
 }
